@@ -1,7 +1,23 @@
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const user = createTRPCRouter({
-    getPosts: protectedProcedure.query(({ ctx }) => {
-        return ctx.prisma.blockPost.findMany()
-    })
-})
+  getPostsFromUser: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.blockPost.findMany({
+      where: {
+        authorID: ctx.session.user.id,
+      },
+    });
+  }),
+
+  getFeed: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.blockPost.findMany({
+      where: {
+        author: {
+          isNot: {
+            email: ctx.session?.user?.email,
+          },
+        },
+      },
+    });
+  }),
+});

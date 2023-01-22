@@ -6,7 +6,7 @@ import { api } from "../utils/api";
 import { CreatePost } from "./components/CreatePost";
 
 const ShowPosts = () => {
-  const seePost = api.user.getPosts.useQuery(undefined);
+  const seePost = api.user.getPostsFromUser.useQuery();
 
   return (
     <div>
