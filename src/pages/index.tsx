@@ -3,31 +3,26 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
+import { CreatePost } from "./components/CreatePost";
 
-const UserFromDatabase = () => {
-  const userData = api.myExample.getAll.useQuery().data;
+const ShowPosts = () => {
+  const seePost = api.user.getPosts.useQuery(undefined);
 
   return (
     <div>
-      {userData?.map((user) => {
-        return (
-          <div key={user.id}>
-            <p>{user.name}</p>
-            <br />
-          </div>
-        );
-      })}
+      <h1 className="text-white">Posts</h1>
+        {seePost.data?.map((post) => (
+          <div key={post.id}>
+            <p className="text-white">{post.text}</p>
+            <p>Post made by {post.authorID}</p>
+            </div>
+        ))}    
     </div>
-  );
-};
+  )
+}
 
 const Home: NextPage = () => {
-  const myHello = api.myExample.input.useQuery({});
   const { data: sessionData } = useSession();
-  const { mutate } = api.myExample.removeAll.useMutation();
-  const secret = api.myExample.secret.useQuery(undefined, {
-    enabled: sessionData?.user !== undefined,
-  });
 
   return (
     <>
@@ -39,18 +34,20 @@ const Home: NextPage = () => {
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div className="flex flex-col items-center gap-2">
-            {/* <p className="text-2xl text-white"> */}
-              {/* {myHello.data ? myHello.data.text : "Loading tRPC query..."}
+            <p className="text-2xl text-white">
               <br />
-              {secret.data ? secret.data : "login for secret"}
-              <br /> */}
-              <UserFromDatabase />
-            {/* </p> */}
-            <button className="text-slate-50" onClick={() => mutate()}>
-              Delete
-            </button>
+            </p>
+            <button className="text-slate-50">Delete</button>
+            {sessionData ? (
+              <CreatePost />
+            ) : (
+              <p className="text-white">Sign in to make a post</p>
+            )}
             <AuthShowcase />
           </div>
+        </div>
+        <div>
+          <ShowPosts />
         </div>
       </main>
     </>
