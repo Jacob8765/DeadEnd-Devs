@@ -36,7 +36,7 @@ const Post = () => {
   return (
     <>
       {createPost.error && <p className="text-red-500">{createPost.error.message}</p>}
-      <div>
+      <div className="m-4">
         <form onSubmit={handleSubmit}>
           <textarea value={code} onChange={(e) => setCode(e.target.value)} />
           <br />
