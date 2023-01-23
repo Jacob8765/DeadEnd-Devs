@@ -19,7 +19,7 @@ function TimeLineFeed() {
             {timeLinePost.data?.map((post) => (
                 <div key={post.id}>
                     <p className="text-white">{post.text}</p>
-                    <p>Post made by {post.authorID}</p>
+                    <p>Post made by {post.authorName}</p>
                 </div>
             ))}
         </div>

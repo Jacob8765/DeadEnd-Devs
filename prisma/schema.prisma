@@ -50,6 +50,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         BlockPost[]
+
+  @@unique([id, name])
 }
 
 model VerificationToken {
@@ -64,7 +66,8 @@ model VerificationToken {
 model BlockPost {
     id String @id @default(cuid())
 
-    author User @relation(fields: [authorID], references: [id])
+    author User @relation(fields: [authorID, authorName], references: [id, name])
+    authorName String
     authorID String
 
     text String
