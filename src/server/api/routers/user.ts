@@ -18,6 +18,20 @@ export const user = createTRPCRouter({
           },
         },
       },
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+      include: {
+        author: {
+          select: {
+            name: true,
+            image: true,
+            id: true,
+          },
+        },
+      },
     });
   }),
 });

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { z } from "zod";
 import { api } from "../../utils/api";
+import MarkdownTextarea from "./MarkdownTextarea";
 
 // Markdown Library needed
 
@@ -35,10 +36,16 @@ const Post = () => {
 
   return (
     <>
-      {createPost.error && <p className="text-red-500">{createPost.error.message}</p>}
+      {createPost.error && (
+        <p className="text-red-500">{createPost.error.message}</p>
+      )}
       <div className="m-4">
         <form onSubmit={handleSubmit}>
           <textarea value={code} onChange={(e) => setCode(e.target.value)} />
+          <div className="flex">
+            <MarkdownTextarea />
+            <MarkdownTextarea />
+          </div>
           <br />
           <button type="submit" className="text-white">
             Submit
