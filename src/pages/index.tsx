@@ -2,7 +2,6 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import TimeLine from "./components/TimeLine";
-import Container from "./components/Container";
 import Navbar from "./components/Navbar";
 
 const Home: NextPage = () => {
@@ -15,9 +14,7 @@ const Home: NextPage = () => {
       </Head>
       <div>
         <Navbar />
-        <Container className="">
-          <TimeLine />
-        </Container>
+        <TimeLine />
       </div>
     </>
   );
