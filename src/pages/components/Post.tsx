@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { z } from "zod";
 import { api } from "../../utils/api";
-import MarkdownTextarea from "./MarkdownTextarea";
+// import useMarkdownText from "./hooks/useMarkdownText";
 
 // Markdown Library needed
 
@@ -13,24 +13,37 @@ export const codeSchema = z.object({
     })
     .min(10)
     .max(280),
+  markdownOne: z.string({
+    required_error: "Markdown is required",
+  }),
+  markdownTwo: z.string({
+    required_error: "Markdown is required",
+  }),
 });
 
 const Post = () => {
   const [code, setCode] = useState("");
+  const [markdownOne, setMarkdownOne] = useState("");
+  const [markdownTwo, setMarkdownTwo] = useState("");
+
   const createPost = api.post.createPost.useMutation();
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(code);
+    console.log(markdownOne);
+    console.log(markdownTwo);
 
-    if (code.length < 10) return "too short";
+    if (code.length < 1) return "too short";
+    if (code.length > 280) return "too long";
 
     try {
-      codeSchema.parse({ code });
+      codeSchema.parse({ code, markdownOne, markdownTwo });
     } catch (e) {
       return
     }
 
-    createPost.mutate({ code })
+    createPost.mutate({ code, markdownOne, markdownTwo })
     setCode("")
   };
 
@@ -43,8 +56,8 @@ const Post = () => {
         <form onSubmit={handleSubmit}>
           <textarea value={code} onChange={(e) => setCode(e.target.value)} />
           <div className="flex">
-            <MarkdownTextarea />
-            <MarkdownTextarea />
+            <textarea onChange={e => setMarkdownOne(e.target.value)} />
+            <textarea onChange={e => setMarkdownTwo(e.target.value)} />
           </div>
           <br />
           <button type="submit" className="text-white">

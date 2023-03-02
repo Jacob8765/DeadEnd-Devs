@@ -19,6 +19,9 @@ function TimeLineFeed() {
       {timeLinePost.data?.map((post) => (
         <div key={post.id}>
           <p className="text-white">{post.text}</p>
+          <p className="text-white">{post.leftBlock}</p>
+          <p className="text-white">{post.rightBlock}</p>
+
           <p>Post made by {post.author.name}</p>
           {(post.author.image && post.author.name) && (
             <Image
