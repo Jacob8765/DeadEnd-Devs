@@ -40,11 +40,11 @@ const Post = () => {
     try {
       codeSchema.parse({ code, markdownOne, markdownTwo });
     } catch (e) {
-      return
+      return;
     }
 
-    createPost.mutate({ code, markdownOne, markdownTwo })
-    setCode("")
+    createPost.mutate({ code, markdownOne, markdownTwo });
+    setCode("");
   };
 
   return (
@@ -52,15 +52,31 @@ const Post = () => {
       {createPost.error && (
         <p className="text-red-500">{createPost.error.message}</p>
       )}
-      <div className="m-4">
+      <div className="m-4 mb-12">
         <form onSubmit={handleSubmit}>
-          <textarea value={code} onChange={(e) => setCode(e.target.value)} />
-          <div className="flex">
-            <textarea onChange={e => setMarkdownOne(e.target.value)} />
-            <textarea onChange={e => setMarkdownTwo(e.target.value)} />
+          <textarea
+            rows={3}
+            className="w-[30ch] resize-none rounded-md"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+          <div className="flex justify-center">
+            <textarea
+              className="height-[150ch] m-6 w-[50ch] resize-none rounded-md"
+              rows={10}
+              onChange={(e) => setMarkdownOne(e.target.value)}
+            />
+            <textarea
+              className="height-[150ch] m-6 w-[50ch] resize-none rounded-md"
+              rows={10}
+              onChange={(e) => setMarkdownTwo(e.target.value)}
+            />
           </div>
           <br />
-          <button type="submit" className="text-white">
+          <button
+            type="submit"
+            className="rounded border-b-4 border-blue-700 bg-blue-500 py-2 px-4 font-bold text-white hover:border-blue-500 hover:bg-blue-400"
+          >
             Submit
           </button>
         </form>
