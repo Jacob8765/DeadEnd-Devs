@@ -5,7 +5,7 @@ import Post from "./Post";
 
 const TimeLine = () => {
   return (
-    <div className="rounded-l-md ml-auto flex w-3/4 flex-col bg-slate-600 text-center">
+    <div className="ml-auto flex w-3/4 flex-col rounded-l-md bg-slate-600 text-center">
       <Post />
       <TimeLineFeed />
     </div>
@@ -24,7 +24,7 @@ function TimeLineFeed() {
             <p className="max-w-[50ch] text-blue-400">{post.rightBlock}</p>
           </div>
 
-          <p>Post made by {post.author.name}</p>
+          <p>Post made by {post.author.name ?? "a deadend dev user"}</p>
           {post.author.image && post.author.name && (
             <Image
               src={`${post.author.image}`}
