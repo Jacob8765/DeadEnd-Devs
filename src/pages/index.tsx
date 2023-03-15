@@ -21,17 +21,13 @@ const Home: NextPage = () => {
 
       <SyntaxHighlighter language="javascript" style={nord} showLineNumbers wrapLongLines>
         {
-        
-        `console.log(Hello World!);
+`console.log(Hello World!);
+const someRandomFunc = () => {
+  const a = 1;
+  let b = 3;
 
-          const someRandomFunc = () => {
-            const a = 1;
-            let b = 3;
-
-            return a + b
-          }
-        `
-        
+  return a + b
+}`
         }
       </SyntaxHighlighter>
     </>
