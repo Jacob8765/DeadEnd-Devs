@@ -56,7 +56,9 @@ const Post = () => {
         <form onSubmit={handleSubmit}>
           <textarea
             rows={3}
+            placeholder="Enter the description here..."
             className="w-[30ch] resize-none rounded-md"
+            
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
