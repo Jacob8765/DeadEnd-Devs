@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { type NextPage } from "next";
-import Head from "next/head";16
+import Head from "next/head";
 import TimeLine from "./components/TimeLine";
 import Navbar from "./components/Navbar";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const Home: NextPage = () => {
+
   return (
     <>
       <Head>
@@ -28,7 +29,7 @@ const someRandomFunc = () => {
 
   return a + b
 }`
-        
+
         }
       </SyntaxHighlighter>
     </>
