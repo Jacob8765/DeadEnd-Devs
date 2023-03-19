@@ -1,8 +1,23 @@
 import React from 'react'
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
-
-const MarkdownTextarea = () => {
-  return <textarea></textarea>;
+interface Props {
+  children: string
 }
+
+const MarkdownTextarea = ({ children }: Props) => {
+  return (
+    <SyntaxHighlighter
+      language="javascript"
+      style={nord}
+      showLineNumbers
+      wrapLongLines
+      wrapLines
+    >
+      {children}
+    </SyntaxHighlighter>
+  );
+};
 
 export default MarkdownTextarea

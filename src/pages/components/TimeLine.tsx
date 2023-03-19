@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { api } from "../../utils/api";
 import Post from "./Post";
+import MarkdownTextarea from "./MarkdownTextarea";
 
 const TimeLine = () => {
   return (
@@ -18,10 +19,16 @@ function TimeLineFeed() {
     <div>
       {timeLinePost.data?.map((post) => (
         <div key={post.id}>
-          <p className="mb-7 max-w-[60ch] break-words mx-auto text-white">{post.text}</p>
+          <p className="mx-auto mb-7 max-w-[60ch] break-words text-white">
+            {post.text}
+          </p>
           <div className="flex justify-evenly break-words">
-            <p className="max-w-[50ch] text-white">{post.leftBlock}</p>
-            <p className="max-w-[50ch] text-blue-400">{post.rightBlock}</p>
+            <MarkdownTextarea>
+              {post.leftBlock}
+            </MarkdownTextarea>
+            <MarkdownTextarea>
+              {post.rightBlock}
+            </MarkdownTextarea>
           </div>
 
           <p>Post made by {post.author.name ?? "a deadend dev user"}</p>

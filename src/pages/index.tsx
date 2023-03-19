@@ -3,11 +3,8 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import TimeLine from "./components/TimeLine";
 import Navbar from "./components/Navbar";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const Home: NextPage = () => {
-
   return (
     <>
       <Head>
@@ -19,19 +16,6 @@ const Home: NextPage = () => {
         <Navbar />
         <TimeLine />
       </div>
-
-      <SyntaxHighlighter language="javascript" style={nord} showLineNumbers wrapLongLines>
-        {
-`console.log("Hello World!");
-const someRandomFunc = () => {
-  const a = 1;
-  let b = 3;
-
-  return a + b
-}`
-
-        }
-      </SyntaxHighlighter>
     </>
   );
 };
