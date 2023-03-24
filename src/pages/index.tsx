@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = unknown;
-
-const home = (props: Props) => {
+const home = () => {
   return <div>this is the index.tsx page</div>;
 };
 
