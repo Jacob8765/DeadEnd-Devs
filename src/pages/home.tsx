@@ -1,4 +1,4 @@
-import { GetServerSideProps, type NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import TimeLine from "./components/TimeLine";
 import Navbar from "./components/Navbar";
