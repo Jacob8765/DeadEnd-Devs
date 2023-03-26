@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { z } from "zod";
 import { api } from "../../utils/api";
-// import useMarkdownText from "./hooks/useMarkdownText";
 
-// Markdown Library needed
 
 // Requirements for the post:
 export const codeSchema = z.object({
@@ -30,9 +28,6 @@ const Post = () => {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(code);
-    console.log(markdownOne);
-    console.log(markdownTwo);
 
     if (code.length < 1) return "too short";
     if (code.length > 280) return "too long";
