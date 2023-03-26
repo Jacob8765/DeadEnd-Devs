@@ -23,12 +23,10 @@ function TimeLineFeed() {
             {post.text}
           </p>
           <div className="flex justify-evenly break-words">
-            <MarkdownTextarea>
-              {post.leftBlock}
-            </MarkdownTextarea>
-            <MarkdownTextarea>
-              {post.rightBlock}
-            </MarkdownTextarea>
+            <MarkdownTextarea>{post.leftBlock}</MarkdownTextarea>
+            {post.rightBlock && (
+              <MarkdownTextarea>{post.rightBlock}</MarkdownTextarea>
+            )}
           </div>
 
           <p>Post made by {post.author.name ?? "a deadend dev user"}</p>
