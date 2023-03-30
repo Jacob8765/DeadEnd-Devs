@@ -3,7 +3,7 @@ import Link from "next/link";
 const LandingPage = () => (
   <div className="min-h-screen bg-gray-100">
     <header className="flex items-center justify-between bg-white px-8 py-6">
-      <h1 className="text-3xl font-bold text-gray-800">My App</h1>
+      <h1 className="text-3xl font-bold text-gray-800">Deadend Devs</h1>
       <nav>
         <ul className="flex space-x-6">
           <li>
@@ -26,13 +26,13 @@ const LandingPage = () => (
     </header>
     <main className="mx-auto max-w-5xl px-8 py-12">
       <h2 className="mb-6 text-4xl font-bold text-gray-800">
-        Welcome to My App
+        Welcome to Deadend Devs!
       </h2>
-      <p className="mb-8 text-lg text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac
-        eleifend neque. Sed ullamcorper dolor vel ipsum accumsan, a dapibus odio
-        elementum.
-      </p>
+      <div className="mb-8 text-lg text-gray-600">
+        A place where you showcase your code to others in{" "}
+        <span className="text-red-600">informative</span> and
+        <span className="text-red-600"> educational</span> ways!
+      </div>
       <button className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-700">
         Sign up now
       </button>
