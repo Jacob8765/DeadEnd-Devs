@@ -6,18 +6,16 @@ interface Props {
   children: string 
 }
 
-const MarkdownTextarea = ({ children }: Props) => {
-  return (
-    <SyntaxHighlighter
-      language="javascript"
-      style={nord}
-      showLineNumbers
-      wrapLongLines
-      wrapLines
-    >
-      {children}
-    </SyntaxHighlighter>
-  );
-};
+const MarkdownTextarea = ({ children }: Props) => (
+  <SyntaxHighlighter
+    language="javascript"
+    style={nord}
+    showLineNumbers
+    wrapLongLines
+    wrapLines
+  >
+    {children}
+  </SyntaxHighlighter>
+);
 
 export default MarkdownTextarea

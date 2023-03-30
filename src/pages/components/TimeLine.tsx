@@ -4,14 +4,12 @@ import { api } from "../../utils/api";
 import Post from "./Post";
 import MarkdownTextarea from "./MarkdownTextarea";
 
-const TimeLine = () => {
-  return (
-    <div className="ml-auto flex w-3/4 flex-col rounded-l-md bg-slate-600 text-center">
-      <Post />
-      <TimeLineFeed />
-    </div>
-  );
-};
+const TimeLine = () => (
+  <div className="ml-auto flex w-3/4 flex-col rounded-l-md bg-slate-600 text-center">
+    <Post />
+    <TimeLineFeed />
+  </div>
+);
 
 function TimeLineFeed() {
   const timeLinePost = api.user.getFeed.useQuery();
