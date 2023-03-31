@@ -19,7 +19,7 @@ const LandingPage = () => (
           </li>
           <li>
             <Link href={"/login"} className="text-gray-800 hover:text-gray-600">
-              Login/Signup
+              Login
             </Link>
           </li>
         </ul>
