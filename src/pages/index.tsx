@@ -57,9 +57,12 @@ const WhatWeCanDo = () => { // ES6 arrow function
 }`}
         </MarkdownTextarea>
       </div>
-      <button className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-700">
+      <Link
+        href={"/login"}
+        className="rounded bg-blue-500 py-4 px-6 text-white relative top-4 hover:bg-blue-700"
+      >
         Sign up now
-      </button>
+      </Link>
     </main>
     <footer className="absolute bottom-0 right-0 left-0 bg-gray-800 px-60 py-4 text-center text-white">
       <p>&copy; 2023 My App. All rights not reserved.</p>
