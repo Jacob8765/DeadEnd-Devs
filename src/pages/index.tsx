@@ -37,7 +37,7 @@ const LandingPage = () => (
       <div>
         <p>Let&apos;s write some JavaScript code!</p>
         <MarkdownTextarea>
-{`function WhatWeCanDo() {
+          {`function WhatWeCanDo() {
     const youAreAmazing = true; // You really are :)
 
     if (youAreAmazing === true) {
@@ -47,7 +47,7 @@ const LandingPage = () => (
         </MarkdownTextarea>
         <p>This can be refactored to this:</p>
         <MarkdownTextarea>
-{`// Semicolons are optional in JS
+          {`// Semicolons are optional in JS
 const WhatWeCanDo = () => { // ES6 arrow function
     const youAreAmazing = true // You still are :)
 
@@ -61,8 +61,8 @@ const WhatWeCanDo = () => { // ES6 arrow function
         Sign up now
       </button>
     </main>
-    <footer className="bg-gray-800 px-8 py-4 text-center text-white">
-      <p>&copy; 2023 My App. All rights reserved.</p>
+    <footer className="absolute bottom-0 right-0 left-0 bg-gray-800 px-60 py-4 text-center text-white">
+      <p>&copy; 2023 My App. All rights not reserved.</p>
     </footer>
   </div>
 );
