@@ -1,3 +1,5 @@
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 import Link from "next/link";
 import MarkdownTextarea from "./components/MarkdownTextarea";
 
@@ -59,7 +61,7 @@ const WhatWeCanDo = () => { // ES6 arrow function
       </div>
       <Link
         href={"/login"}
-        className="rounded bg-blue-500 py-4 px-6 text-white relative top-4 hover:bg-blue-700"
+        className="relative top-4 rounded bg-blue-500 py-4 px-6 text-white hover:bg-blue-700"
       >
         Sign up now
       </Link>
@@ -69,5 +71,22 @@ const WhatWeCanDo = () => { // ES6 arrow function
     </footer>
   </div>
 );
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default LandingPage;
