@@ -65,7 +65,7 @@ const WhatWeCanDo = () => { // ES6 arrow function
       </Link>
     </main>
     <footer className="absolute bottom-0 right-0 left-0 bg-gray-800 px-60 py-4 text-center text-white">
-      <p>&copy; 2023 My App. All rights not reserved.</p>
+      <p>&copy; 2023 Deadend Devs. All rights not reserved.</p>
     </footer>
   </div>
 );
