@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MarkdownTextarea from "./components/MarkdownTextarea";
 
 const LandingPage = () => (
   <div className="min-h-screen bg-gray-100">
@@ -30,8 +31,31 @@ const LandingPage = () => (
       </h2>
       <div className="mb-8 text-lg text-gray-600">
         A place where you showcase your code to others in{" "}
-        <span className="text-red-600">informative</span> and
-        <span className="text-red-600"> educational</span> ways!
+        <span className="text-blue-500">informative</span> and
+        <span className="text-blue-500"> educational</span> ways!
+      </div>
+      <div>
+        <p>Let&apos;s write some JavaScript code!</p>
+        <MarkdownTextarea>
+{`function WhatWeCanDo() {
+    const youAreAmazing = true; // You really are :)
+
+    if (youAreAmazing === true) {
+      return "Keep being amazing!!!";
+    };
+};`}
+        </MarkdownTextarea>
+        <p>This can be refactored to this:</p>
+        <MarkdownTextarea>
+{`// Semicolons are optional in JS
+const WhatWeCanDo = () => { // ES6 arrow function
+    const youAreAmazing = true // You still are :)
+
+    if (youAreAmazing) { // This will be true because of truthy and falsy values in JS.
+      return "Keep being amazing!!!"
+    }
+}`}
+        </MarkdownTextarea>
       </div>
       <button className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-700">
         Sign up now
