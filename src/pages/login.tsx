@@ -1,14 +1,27 @@
 import type { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
+import Image from "next/image";
 import React from "react";
-import Navbar from "./components/Navbar";
 
 const login = () => {
   return (
-    <>
-      <Navbar />
-      <div>login</div>
-    </>
+    <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
+      <div className="rounded-lg  bg-blue-500 p-6 shadow-lg">
+        <button
+          onClick={() => void signIn('google')}
+          className="rounded-lg bg-white px-4 py-2 text-blue-500 relative pl-10"
+        >
+          <Image
+            src="/google-icon.png"
+            alt="google icon"
+            width={25}
+            height={25}
+            className="absolute left-2"
+          />
+          Login with Google
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -28,4 +41,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {},
   };
-}
+};
