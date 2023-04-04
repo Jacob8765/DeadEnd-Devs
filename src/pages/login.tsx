@@ -8,8 +8,8 @@ const login = () => {
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
       <div className="rounded-lg  bg-blue-500 p-6 shadow-lg">
         <button
-          onClick={() => void signIn('google')}
-          className="rounded-lg bg-white px-4 py-2 text-blue-500 relative pl-10"
+          onClick={() => void signIn("google")}
+          className="relative rounded-lg bg-white px-4 py-2 pl-10 text-blue-500"
         >
           <Image
             src="/google-icon.png"
