@@ -29,7 +29,7 @@ const LandingPage = () => (
     </header>
     <main className="mx-auto max-w-5xl px-8 py-12">
       <h2 className="mb-6 text-4xl font-bold text-gray-800">
-        Welcome to Deadend Devs!
+        Welcome to DeadEnd Devs!
       </h2>
       <div className="mb-8 text-lg text-gray-600">
         A place where you showcase your code to others in{" "}
