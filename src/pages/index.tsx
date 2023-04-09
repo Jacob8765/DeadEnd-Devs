@@ -6,7 +6,7 @@ import MarkdownTextarea from "./components/MarkdownTextarea";
 const LandingPage = () => (
   <div className="min-h-screen bg-gray-100">
     <header className="flex items-center justify-between bg-white px-8 py-6">
-      <h1 className="text-3xl font-bold text-gray-800">Deadend Devs</h1>
+      <h1 className="text-3xl font-bold text-gray-800">DeadEnd Devs</h1>
       <nav>
         <ul className="flex space-x-6">
           <li>
