@@ -13,6 +13,7 @@ const LandingPage = () => (
             <Link href={"/home"} className="text-gray-800 hover:text-gray-600">
               Home
             </Link>
+            <div>hellodnfakjzsdbvkajwerbvjae,hbrkvjaehbrkvjaebvjkrebv</div>
           </li>
           <li>
             <Link href={"/about"} className="text-gray-800 hover:text-gray-600">

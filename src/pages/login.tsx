@@ -6,7 +6,7 @@ import React from "react";
 const login = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
-      <div className="text-center text-6xl absolute top-[25vh] font-bold">Deadend Devs</div>
+      <div className="text-center text-6xl absolute top-[25vh] font-bold">DeadEnd Devs</div>
       <div className="rounded-lg  bg-blue-500 p-6 shadow-lg">
         <button
           onClick={() => void signIn("google")}
