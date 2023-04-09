@@ -27,7 +27,7 @@ function TimeLineFeed() {
             )}
           </div>
 
-          <p>Post made by {post.author.name ?? "a deadend dev user"}</p>
+          <p>Post made by {post.author.name ?? "a user"}</p>
           {post.author.image && post.author.name && (
             <Image
               src={`${post.author.image}`}
