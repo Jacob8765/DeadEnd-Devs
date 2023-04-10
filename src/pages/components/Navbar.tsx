@@ -7,8 +7,10 @@ import Button from "./Button";
 const Navbar = () => {
   const { data: session } = useSession();
   return (
-    <div className="mx-5 flex justify-between">
-      <Link href={"/"}>DeadEnd Devs</Link>
+    <div className="m-2 mx-auto flex w-[98%] items-center justify-between">
+      <Link href={"/"} className="text-3xl font-bold">
+        DeadEnd Devs
+      </Link>
       {session ? <LoggedIn session={session} /> : <LoggedOut />}
       {session && (
         <Button onClick={() => void signOut()} className="rounded-md py-3">
@@ -21,7 +23,7 @@ const Navbar = () => {
 
 function LoggedIn({ session }: { session: Session }) {
   const { user } = session;
-  return <div>Welcome back, {user?.name ?? "User"}!</div>;
+  return <div className="text-xl">Welcome back, {user?.name ?? "User"}!</div>;
 }
 
 function LoggedOut() {
