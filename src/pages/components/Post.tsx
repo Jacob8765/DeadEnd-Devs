@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { z } from "zod";
 import { api } from "../../utils/api";
-
+import Editor from "@monaco-editor/react";
 
 // Requirements for the post:
 export const codeSchema = z.object({
@@ -53,20 +53,21 @@ const Post = () => {
             rows={3}
             placeholder="Enter the description here..."
             className="w-[30ch] resize-none rounded-md"
-            
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
-          <div className="flex justify-center">
-            <textarea
-              className="height-[150ch] m-6 w-[50ch] resize-none rounded-md"
-              rows={10}
-              onChange={(e) => setMarkdownOne(e.target.value)}
+          <div className="flex gap-5 justify-center mt-6">
+            <Editor
+              height="35vh"
+              width="35vw"
+              defaultLanguage="javascript"
+              defaultValue="// write your code here"
             />
-            <textarea
-              className="height-[150ch] m-6 w-[50ch] resize-none rounded-md"
-              rows={10}
-              onChange={(e) => setMarkdownTwo(e.target.value)}
+            <Editor
+              height="35vh"
+              width="35vw"
+              defaultLanguage="javascript"
+              defaultValue="// write your code here"
             />
           </div>
           <br />
