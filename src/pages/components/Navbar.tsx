@@ -2,6 +2,7 @@ import type { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import Button from "./Button";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -9,7 +10,11 @@ const Navbar = () => {
     <div className="mx-5 flex justify-between">
       <Link href={"/"}>DeadEnd Devs</Link>
       {session ? <LoggedIn session={session} /> : <LoggedOut />}
-      {session && <button onClick={() => void signOut()}>Sign out</button>}
+      {session && (
+        <Button onClick={() => void signOut()} className="rounded-md py-3">
+          Sign out
+        </Button>
+      )}
     </div>
   );
 };

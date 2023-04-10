@@ -2,6 +2,7 @@ import type { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
 import MarkdownTextarea from "./components/MarkdownTextarea";
+import Button from "./components/Button";
 
 const LandingPage = () => (
   <div className="min-h-screen bg-gray-100">
@@ -59,12 +60,7 @@ const WhatWeCanDo = () => { // ES6 arrow function
 }`}
         </MarkdownTextarea>
       </div>
-      <Link
-        href={"/login"}
-        className="relative top-4 rounded bg-blue-500 py-4 px-6 text-white hover:bg-blue-700"
-      >
-        Sign up now
-      </Link>
+      <Button href="login" className="relative top-4">Sign up now!</Button>
     </main>
     <footer className="absolute bottom-0 right-0 left-0 bg-gray-800 px-60 py-4 text-center text-white">
       <p>&copy; 2023 DeadEnd Devs. All rights not reserved.</p>
