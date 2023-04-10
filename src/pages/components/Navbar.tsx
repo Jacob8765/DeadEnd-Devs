@@ -1,12 +1,13 @@
 import type { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
   const { data: session } = useSession();
   return (
     <div className="mx-5 flex justify-between">
-      <div>DeadEnd Devs</div>
+      <Link href={"/"}>DeadEnd Devs</Link>
       {session ? <LoggedIn session={session} /> : <LoggedOut />}
       {session && <button onClick={() => void signOut()}>Sign out</button>}
     </div>

@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  // JIT mode generates your CSS on-demand by scanning your template files
+  purge: ["./public/**/*.html", "./src/**/*.{ts,tsx}"],
   plugins: [],
 };
