@@ -1,12 +1,18 @@
 import type { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const login = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
-      <div className="text-center text-6xl absolute top-[25vh] font-bold">DeadEnd Devs</div>
+      <Link
+        href={"/"}
+        className="absolute top-[25vh] text-center text-6xl font-bold"
+      >
+        DeadEnd Devs
+      </Link>
       <div className="rounded-lg  bg-blue-500 p-6 shadow-lg">
         <button
           onClick={() => void signIn("google")}
