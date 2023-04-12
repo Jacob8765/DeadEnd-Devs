@@ -18,17 +18,22 @@ const about = () => (
           community.{" "}
         </p>
         <p className="text-gray-600">
-          With our social media platform, you can also post redundant code on the
-          left and the right way to write the same code on the right. This
+          With our social media platform, you can also post redundant code on
+          the left and the right way to write the same code on the right. This
           feature encourages users to share their coding journey, learn from
           others, and improve their coding skills. Developers can react to and
           comment on posts, allowing for a more engaging and interactive
           experience. Join our community of like-minded developers and share
           your coding experience with others while exploring new and innovative
-          ways to code {'<3'}
+          ways to code {"<3"}
         </p>
       </div>
-      <Link href={'/login'} className="rounded-md p-4 mt-6 text-white bg-blue-500 hover:bg-blue-700">Sign up or Log in!</Link>
+      <Link
+        href={"/login"}
+        className="mt-6 rounded-md bg-blue-500 p-4 text-white hover:bg-blue-700"
+      >
+        Sign up or Log in!
+      </Link>
     </div>
   </>
 );

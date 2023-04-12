@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { z } from "zod";
 import { api } from "../../utils/api";
 import Editor from "@monaco-editor/react";
 
-// Requirements for the post:
+// requirements for the post:
 export const codeSchema = z.object({
   code: z
     .string({
@@ -11,35 +11,63 @@ export const codeSchema = z.object({
     })
     .min(10)
     .max(280),
-  markdownOne: z.string({
-    required_error: "Markdown is required",
-  }),
-  markdownTwo: z.string({
-    required_error: "Markdown is required",
-  }),
+  editorBoxOne: z
+    .string({
+      required_error: "Code is required",
+    })
+    .min(10)
+    .max(500),
+  editorBoxTwo: z
+    .string({
+      required_error: "Markdown is required",
+    })
+    .max(500)
+    .optional(),
 });
 
 const Post = () => {
   const [code, setCode] = useState("");
-  const [markdownOne, setMarkdownOne] = useState("");
-  const [markdownTwo, setMarkdownTwo] = useState("");
+  const editorRefOne = useRef<undefined | string>(undefined);
+  const editorRefTwo = useRef<undefined | string>(undefined);
 
   const createPost = api.post.createPost.useMutation();
+
+  const handleEditorOneDidMount = (editor: string) => {
+    editorRefOne.current = editor;
+  };
+
+  const handleEditorTwoDidMount = (editor: string) => {
+    editorRefTwo.current = editor;
+  };
+
+  const handleEditorOneWillUpdate = (editor: string | undefined) => {
+    editorRefOne.current = editor;
+    console.log(editorRefOne.current);
+  };
+
+  const handleEditorTwoWillUpdate = (editor: string | undefined) => {
+    editorRefTwo.current = editor;
+    console.log(editorRefTwo.current);
+  };
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (code.length < 1) return "too short";
-    if (code.length > 280) return "too long";
+    // editors will be mounted before the submit button is clicked
+    const editorBoxOne = editorRefOne.current as string;
+    const editorBoxTwo = editorRefTwo.current as string;
 
     try {
-      codeSchema.parse({ code, markdownOne, markdownTwo });
+      codeSchema.parse({ code, editorBoxOne, editorBoxTwo });
     } catch (e) {
       return;
     }
 
-    createPost.mutate({ code, markdownOne, markdownTwo });
+    createPost.mutate({ code, editorBoxOne, editorBoxTwo });
+
     setCode("");
+    editorRefOne.current = "";
+    editorRefTwo.current = "";
   };
 
   return (
@@ -56,17 +84,21 @@ const Post = () => {
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
-          <div className="flex gap-5 justify-center mt-6">
+          <div className="mt-6 flex justify-center gap-5">
             <Editor
               height="35vh"
               width="35vw"
+              onMount={handleEditorOneDidMount}
+              onChange={handleEditorOneWillUpdate}
               defaultLanguage="javascript"
               defaultValue="// write your code here"
             />
             <Editor
               height="35vh"
               width="35vw"
+              onChange={handleEditorTwoWillUpdate}
               defaultLanguage="javascript"
+              onMount={handleEditorTwoDidMount}
               defaultValue="// write your code here"
             />
           </div>

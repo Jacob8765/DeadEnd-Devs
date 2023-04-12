@@ -5,7 +5,7 @@ import Post from "./Post";
 import MarkdownTextarea from "./MarkdownTextarea";
 
 const TimeLine = () => (
-  <div className="ml-auto flex w-3/4 flex-col rounded-l-md bg-slate-600 text-center">
+  <div className="ml-auto flex w-5/6 flex-col rounded-l-md bg-slate-600 text-center">
     <Post />
     <TimeLineFeed />
   </div>

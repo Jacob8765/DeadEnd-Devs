@@ -16,7 +16,7 @@ const login = () => {
       <div className="rounded-lg  bg-blue-500 p-6 shadow-lg">
         <button
           onClick={() => void signIn("google")}
-          className="relative rounded-lg bg-white px-4 py-2 pl-10 text-blue-500"
+          className="relative rounded-lg bg-white px-6 py-3 pl-10 text-blue-500"
         >
           <Image
             src="/google-icon.png"

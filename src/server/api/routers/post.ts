@@ -5,14 +5,14 @@ export const post = createTRPCRouter({
   createPost: protectedProcedure
     .input(codeSchema)
     .mutation(({ ctx, input }) => {
-      const { code: text, markdownOne, markdownTwo} = input;
+      const { code: text, editorBoxOne, editorBoxTwo } = input;
       const { prisma, session } = ctx;
       const userID = session.user.id;
       return prisma.blockPost.create({
         data: {
           text,
-          leftBlock: markdownOne,
-          rightBlock: markdownTwo,
+          leftBlock: editorBoxOne,
+          rightBlock: editorBoxTwo,
           author: {
             connect: {
               id: userID,

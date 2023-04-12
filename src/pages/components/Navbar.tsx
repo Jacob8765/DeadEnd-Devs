@@ -29,7 +29,9 @@ function LoggedIn({ session }: { session: Session }) {
 function LoggedOut() {
   return (
     <div>
-      <button onClick={() => void signIn()}>Click here to log in!</button>
+      <Button onClick={() => void signIn()} className="relative top-4">
+        Click here to log in!
+      </Button>
     </div>
   );
 }
