@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface Props {
-  children: string 
+  children: string;
 }
 
 const MarkdownTextarea = ({ children }: Props) => (
@@ -18,4 +18,4 @@ const MarkdownTextarea = ({ children }: Props) => (
   </SyntaxHighlighter>
 );
 
-export default MarkdownTextarea
+export default MarkdownTextarea;
