@@ -5,7 +5,7 @@ import Editor from "@monaco-editor/react";
 
 // requirements for the post:
 export const codeSchema = z.object({
-  code: z
+  description: z
     .string({
       required_error: "Code is required",
     })
@@ -26,7 +26,7 @@ export const codeSchema = z.object({
 });
 
 const Post = () => {
-  const [code, setCode] = useState("");
+  const [description, setDescription] = useState("");
   const editorRefOne = useRef<undefined | string>(undefined);
   const editorRefTwo = useRef<undefined | string>(undefined);
 
@@ -42,12 +42,10 @@ const Post = () => {
 
   const handleEditorOneWillUpdate = (editor: string | undefined) => {
     editorRefOne.current = editor;
-    console.log(editorRefOne.current);
   };
 
   const handleEditorTwoWillUpdate = (editor: string | undefined) => {
     editorRefTwo.current = editor;
-    console.log(editorRefTwo.current);
   };
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -58,14 +56,14 @@ const Post = () => {
     const editorBoxTwo = editorRefTwo.current as string;
 
     try {
-      codeSchema.parse({ code, editorBoxOne, editorBoxTwo });
+      codeSchema.parse({ description, editorBoxOne, editorBoxTwo });
     } catch (e) {
       return;
     }
 
-    createPost.mutate({ code, editorBoxOne, editorBoxTwo });
+    createPost.mutate({ description, editorBoxOne, editorBoxTwo });
 
-    setCode("");
+    setDescription("");
     editorRefOne.current = "";
     editorRefTwo.current = "";
   };
@@ -81,8 +79,8 @@ const Post = () => {
             rows={3}
             placeholder="Enter the description here..."
             className="w-[30ch] resize-none rounded-md"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
           <div className="mt-6 flex justify-center gap-5">
             <Editor
