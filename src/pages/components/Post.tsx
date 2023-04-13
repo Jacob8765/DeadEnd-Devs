@@ -26,12 +26,13 @@ export const codeSchema = z.object({
 });
 
 const Post = () => {
+  const defaultCode = `// write your code here`;
   const [description, setDescription] = useState("");
   const [editorOneValue, setEditorOneValue] = useState(
-    "// write your code here"
+  defaultCode
   );
   const [editorTwoValue, setEditorTwoValue] = useState(
-    "// write your code here"
+  defaultCode
   );
   const editorRefOne = useRef<undefined | string>(undefined);
   const editorRefTwo = useRef<undefined | string>(undefined);
