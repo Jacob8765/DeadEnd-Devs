@@ -27,6 +27,12 @@ export const codeSchema = z.object({
 
 const Post = () => {
   const [description, setDescription] = useState("");
+  const [editorOneValue, setEditorOneValue] = useState(
+    "// write your code here"
+  );
+  const [editorTwoValue, setEditorTwoValue] = useState(
+    "// write your code here"
+  );
   const editorRefOne = useRef<undefined | string>(undefined);
   const editorRefTwo = useRef<undefined | string>(undefined);
 
@@ -42,10 +48,12 @@ const Post = () => {
 
   const handleEditorOneWillUpdate = (editor: string | undefined) => {
     editorRefOne.current = editor;
+    setEditorOneValue(editor as string);
   };
 
   const handleEditorTwoWillUpdate = (editor: string | undefined) => {
     editorRefTwo.current = editor;
+    setEditorTwoValue(editor as string);
   };
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -64,7 +72,8 @@ const Post = () => {
     createPost.mutate({ description, editorBoxOne, editorBoxTwo });
 
     setDescription("");
-    editorRefOne.current = "";
+    setEditorOneValue("// write your code here");
+    setEditorTwoValue("// write your code here");
     editorRefTwo.current = "";
   };
 
@@ -89,7 +98,7 @@ const Post = () => {
               onMount={handleEditorOneDidMount}
               onChange={handleEditorOneWillUpdate}
               defaultLanguage="javascript"
-              defaultValue="// write your code here"
+              value={editorOneValue}
             />
             <Editor
               height="35vh"
@@ -97,7 +106,7 @@ const Post = () => {
               onChange={handleEditorTwoWillUpdate}
               defaultLanguage="javascript"
               onMount={handleEditorTwoDidMount}
-              defaultValue="// write your code here"
+              value={editorTwoValue}
             />
           </div>
           <br />
