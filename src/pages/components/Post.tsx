@@ -15,13 +15,11 @@ export const codeSchema = z.object({
     .string({
       required_error: "Code is required",
     })
-    .min(10)
-    .max(500),
+    .min(10),
   editorBoxTwo: z
     .string({
       required_error: "Markdown is required",
     })
-    .max(500)
     .optional(),
 });
 
@@ -77,7 +75,8 @@ const Post = () => {
   return (
     <>
       {createPost.error && (
-        <p className="text-red-500">{createPost.error.message}</p>
+        // <p className="text-red-500">{createPost.error.message}</p>
+        <p>Oops! There was an error! Refresh and try again.</p>
       )}
       <div className="m-4 mb-12">
         <form onSubmit={handleSubmit}>
