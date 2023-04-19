@@ -3,6 +3,7 @@ import Head from "next/head";
 import TimeLine from "./components/TimeLine";
 import Navbar from "./components/Navbar";
 import { getSession } from "next-auth/react";
+import React from "react";
 
 const Home: NextPage = () => {
   return (

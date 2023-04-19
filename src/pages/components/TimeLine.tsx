@@ -5,7 +5,7 @@ import Post from "./Post";
 import MarkdownTextarea from "./MarkdownTextarea";
 
 const TimeLine = () => (
-  <div className="ml-auto flex w-5/6 flex-col rounded-l-md bg-slate-600 text-center">
+  <div className="ml-auto flex w-full flex-col rounded-l-md bg-slate-600 text-center">
     <Post />
     <TimeLineFeed />
   </div>
@@ -16,14 +16,18 @@ function TimeLineFeed() {
   return (
     <div>
       {timeLinePost.data?.map((post) => (
-        <div key={post.id}>
+        <div key={post.id} className="max-w-[w-full]">
           <p className="mx-auto mb-7 max-w-[60ch] break-words text-white">
             {post.text}
           </p>
-          <div className="flex justify-evenly break-words">
-            <MarkdownTextarea>{post.leftBlock}</MarkdownTextarea>
+          <div className="m-4 flex justify-evenly break-words">
+            <MarkdownTextarea className="max-w-[45vw]">
+              {post.leftBlock}
+            </MarkdownTextarea>
             {post.rightBlock && (
-              <MarkdownTextarea>{post.rightBlock}</MarkdownTextarea>
+              <MarkdownTextarea className="max-w-[45vw]">
+                {post.rightBlock}
+              </MarkdownTextarea>
             )}
           </div>
 
