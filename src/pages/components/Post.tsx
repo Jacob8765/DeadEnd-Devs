@@ -83,7 +83,7 @@ const Post = () => {
           <textarea
             rows={3}
             placeholder="Enter the description here..."
-            className="w-[30ch] resize-none rounded-md"
+            className="w-[41vw] h-[6rem] mt-4 resize-none rounded-md"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />

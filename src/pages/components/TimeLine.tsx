@@ -30,16 +30,19 @@ function TimeLineFeed() {
               </MarkdownTextarea>
             )}
           </div>
-
-          <p>Post made by {post.author.name ?? "a user"}</p>
-          {post.author.image && post.author.name && (
-            <Image
-              src={`${post.author.image}`}
-              alt={`${post.author.name}'s profile pic!`}
-              width={48}
-              height={48}
-            />
-          )}
+          <p>Post made by:</p>
+          <div className="inline-flex  mb-24 gap-5 mt-6 border border-white rounded-md">
+            <span className="text-white my-auto ml-4">{post.author.name ?? "a user"}</span>
+            {post.author.image && post.author.name && (
+              <Image
+              className="relative overflow-hidden rounded-md"
+                src={`${post.author.image}`}
+                alt={`${post.author.name}'s profile pic!`}
+                width={48}
+                height={48}
+              />
+            )}
+          </div>
         </div>
       ))}
     </div>
