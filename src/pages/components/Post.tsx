@@ -9,13 +9,12 @@ export const codeSchema = z.object({
     .string({
       required_error: "Code is required",
     })
-    .min(10)
     .max(280),
   editorBoxOne: z
     .string({
       required_error: "Code is required",
     })
-    .min(10),
+    .min(1),
   editorBoxTwo: z
     .string({
       required_error: "Markdown is required",
@@ -83,7 +82,7 @@ const Post = () => {
           <textarea
             rows={3}
             placeholder="Enter the description here..."
-            className="w-[41vw] h-[6rem] mt-4 resize-none rounded-md"
+            className="mt-4 h-[6rem] w-[41vw] resize-none rounded-md"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />

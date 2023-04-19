@@ -31,15 +31,17 @@ function TimeLineFeed() {
             )}
           </div>
           <p>Post made by:</p>
-          <div className="inline-flex  mb-24 gap-5 mt-6 border border-white rounded-md">
-            <span className="text-white my-auto ml-4">{post.author.name ?? "a user"}</span>
+          <div className="mb-24  mt-6 inline-flex gap-5 rounded-md border border-white">
+            <span className="my-auto ml-4 text-white">
+              {post.author.name ?? "a user"}
+            </span>
             {post.author.image && post.author.name && (
               <Image
-              className="relative overflow-hidden rounded-md"
+                className="relative overflow-hidden rounded-md"
                 src={`${post.author.image}`}
                 alt={`${post.author.name}'s profile pic!`}
-                width={48}
-                height={48}
+                width={55}
+                height={55}
               />
             )}
           </div>
