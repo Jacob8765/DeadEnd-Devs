@@ -9,6 +9,7 @@ export const codeSchema = z.object({
     .string({
       required_error: "Code is required",
     })
+    .min(10)
     .max(280),
   editorBoxOne: z
     .string({
@@ -23,10 +24,16 @@ export const codeSchema = z.object({
 });
 
 const Post = () => {
-  const defaultCode = `// write your code here`;
+  const defaultCode = "// write your code here";
+  const secondBlockOptionalCode = ". (this code block is optional)";
   const [description, setDescription] = useState("");
+  const validDescriptionLength =
+    description.length <= 280 && description.length >= 10;
+  const lengthOfDescription = description.length;
   const [editorOneValue, setEditorOneValue] = useState(defaultCode);
-  const [editorTwoValue, setEditorTwoValue] = useState(defaultCode);
+  const [editorTwoValue, setEditorTwoValue] = useState(
+    defaultCode + secondBlockOptionalCode
+  );
   const editorRefOne = useRef<undefined | string>(undefined);
   const editorRefTwo = useRef<undefined | string>(undefined);
 
@@ -66,9 +73,34 @@ const Post = () => {
     createPost.mutate({ description, editorBoxOne, editorBoxTwo });
 
     setDescription("");
-    setEditorOneValue("// write your code here");
-    setEditorTwoValue("// write your code here");
+    setEditorOneValue(defaultCode);
+    setEditorTwoValue(defaultCode + secondBlockOptionalCode);
     editorRefTwo.current = "";
+  };
+
+  // when the description box is focused, the border state will show unless the description is invalid
+  const descriptionFocused = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+    e.target.classList.add("border-4");
+
+    // cannot use validDescriptionLength because there is an offset bug when the boolean changes. you get rid of that using the length of the event.target.value
+    if (e.target.value.length <= 280 && e.target.value.length >= 10) {
+      e.target.classList.remove("border-red-300");
+      e.target.classList.remove("border-orange-300");
+      e.target.classList.add("border-green-300");
+      return;
+    }
+    e.target.classList.remove("border-green-300");
+    e.target.classList.remove("border-orange-300");
+    e.target.classList.add("border-red-500");
+  };
+
+  const descriptionNotFocused = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    return e.target.classList.remove(
+      "border-4",
+      "border-green-300",
+      "border-red-500"
+    );
   };
 
   return (
@@ -82,10 +114,20 @@ const Post = () => {
           <textarea
             rows={3}
             placeholder="Enter the description here..."
-            className="mt-4 h-[6rem] w-[41vw] resize-none rounded-md"
+            className={`mt-4 h-[6rem] w-[41vw] resize-none rounded-md outline-none`}
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onFocus={(e) => descriptionFocused(e)}
+            onBlur={(e) => descriptionNotFocused(e)}
+            // onChange has descriptionFocused func instead of setDescription because onChange needs to call two functions
+            onChange={(e) => descriptionFocused(e)}
           />
+          <p
+            className={`${
+              validDescriptionLength ? "text-green-300" : "text-red-300"
+            }`}
+          >
+            {lengthOfDescription}
+          </p>
           <div className="mt-6 flex justify-center gap-5">
             <Editor
               height="35vh"
