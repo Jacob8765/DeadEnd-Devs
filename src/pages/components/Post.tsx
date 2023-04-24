@@ -86,12 +86,11 @@ const Post = () => {
     // cannot use validDescriptionLength because there is an offset bug when the boolean changes. you get rid of that using the length of the event.target.value
     if (e.target.value.length <= 280 && e.target.value.length >= 10) {
       e.target.classList.remove("border-red-300");
-      e.target.classList.remove("border-orange-300");
       e.target.classList.add("border-green-300");
       return;
     }
+
     e.target.classList.remove("border-green-300");
-    e.target.classList.remove("border-orange-300");
     e.target.classList.add("border-red-500");
   };
 
@@ -123,7 +122,7 @@ const Post = () => {
           />
           <p
             className={`${
-              validDescriptionLength ? "text-green-300" : "text-red-300"
+              validDescriptionLength ? "text-green-300" : "text-red-500"
             }`}
           >
             {lengthOfDescription}
