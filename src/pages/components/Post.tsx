@@ -95,11 +95,17 @@ const Post = () => {
   };
 
   const descriptionNotFocused = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    return e.target.classList.remove(
-      "border-4",
-      "border-green-300",
-      "border-red-500"
-    );
+
+    if (!(e.target.value.length <= 280 && e.target.value.length >= 10)) {
+      return e.target.classList.add(
+        "border-red-500"
+      );
+    }
+      return e.target.classList.remove(
+        "border-4",
+        "border-green-300",
+        "border-red-500"
+      );
   };
 
   return (
