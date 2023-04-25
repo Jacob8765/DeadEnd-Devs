@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { z } from "zod";
 import { api } from "../../utils/api";
 import Editor from "@monaco-editor/react";
+import LoadingSpinner from "./LoadingSpinner";
 
 // requirements for the post:
 export const codeSchema = z.object({
@@ -138,6 +139,7 @@ const Post = () => {
               onChange={handleEditorOneWillUpdate}
               defaultLanguage="javascript"
               value={editorOneValue}
+              loading={<LoadingSpinner />}
             />
             <Editor
               height="35vh"
@@ -146,6 +148,7 @@ const Post = () => {
               defaultLanguage="javascript"
               onMount={handleEditorTwoDidMount}
               value={editorTwoValue}
+              loading={<LoadingSpinner />}
             />
           </div>
           <br />
