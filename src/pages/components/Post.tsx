@@ -35,6 +35,7 @@ const Post = () => {
   const [editorTwoValue, setEditorTwoValue] = useState(
     defaultCode + secondBlockOptionalCode
   );
+  const [descriptionFocused, setDescriptionFocused] = useState(false);
   const editorRefOne = useRef<undefined | string>(undefined);
   const editorRefTwo = useRef<undefined | string>(undefined);
 
@@ -79,31 +80,10 @@ const Post = () => {
     editorRefTwo.current = "";
   };
 
-  // when the description box is focused, the border state will show unless the description is invalid
-  const descriptionFocused = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setDescription(e.target.value);
-    e.target.classList.add("border-4");
-
-    // cannot use validDescriptionLength because there is an offset bug when the boolean changes. you get rid of that using the length of the event.target.value
-    if (e.target.value.length <= 280 && e.target.value.length >= 10) {
-      e.target.classList.remove("border-red-300");
-      e.target.classList.add("border-green-300");
-      return;
-    }
-
-    e.target.classList.remove("border-green-300");
-    e.target.classList.add("border-red-500");
-  };
-
-  const descriptionNotFocused = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (!(e.target.value.length <= 280 && e.target.value.length >= 10)) {
-      return e.target.classList.add("border-red-500");
-    }
-    return e.target.classList.remove(
-      "border-4",
-      "border-green-300",
-      "border-red-500"
-    );
   };
 
   return (
@@ -117,12 +97,16 @@ const Post = () => {
           <textarea
             rows={3}
             placeholder="Enter the description here..."
-            className={`mt-4 h-[6rem] w-[41vw] resize-none rounded-md outline-none`}
+            className={`mt-4 h-[6rem] w-[41vw] resize-none rounded-md outline-none ${
+              descriptionFocused ? "border-4" : ""
+            } ${
+              (description.length >= 10 && description.length <= 280) ? "border-green-300" : "border-red-500"
+            }`}
             value={description}
-            onFocus={(e) => descriptionFocused(e)}
-            onBlur={(e) => descriptionNotFocused(e)}
+            onFocus={() => setDescriptionFocused(true)}
+            onBlur={() => setDescriptionFocused(false)}
             // onChange has descriptionFocused func instead of setDescription because onChange needs to call two functions
-            onChange={(e) => descriptionFocused(e)}
+            onChange={(e) => handleDescriptionChange(e)}
           />
           <p
             className={`${
