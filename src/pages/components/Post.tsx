@@ -68,10 +68,7 @@ const Post = () => {
     const editorBoxOne = editorRefOne.current as string;
     const editorBoxTwo = editorRefTwo.current as string;
 
-    console.log(editorBoxOne, editorBoxTwo);
-
     try {
-      console.log(editorBoxOne, editorBoxTwo);
       codeSchema.parse({ description, editorBoxOne, editorBoxTwo });
     } catch (e) {
       console.log(e);
@@ -83,7 +80,6 @@ const Post = () => {
     setDescription("");
     setEditorOneValue(defaultCode);
     setEditorTwoValue(defaultCode + secondBlockOptionalCode);
-    editorRefTwo.current = "";
   };
 
   const handleDescriptionChange = (
