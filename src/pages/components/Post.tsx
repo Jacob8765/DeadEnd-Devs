@@ -17,11 +17,7 @@ export const codeSchema = z.object({
       required_error: "Code is required",
     })
     .min(1),
-  editorBoxTwo: z
-    .string({
-      required_error: "Markdown is required",
-    })
-    .optional(),
+  editorBoxTwo: z.string(),
 });
 
 const Post = () => {
@@ -41,12 +37,18 @@ const Post = () => {
 
   const createPost = api.post.createPost.useMutation();
 
-  const handleEditorOneDidMount = (editor: string) => {
-    editorRefOne.current = editor;
+  console.log(createPost.status);
+
+  const handleEditorOneDidMount = (editor: {
+    getValue: () => string | undefined;
+  }) => {
+    editorRefOne.current = editor.getValue();
   };
 
-  const handleEditorTwoDidMount = (editor: string) => {
-    editorRefTwo.current = editor;
+  const handleEditorTwoDidMount = (editor: {
+    getValue: () => string | undefined;
+  }) => {
+    editorRefTwo.current = editor.getValue();
   };
 
   const handleEditorOneWillUpdate = (editor: string | undefined) => {
@@ -66,9 +68,13 @@ const Post = () => {
     const editorBoxOne = editorRefOne.current as string;
     const editorBoxTwo = editorRefTwo.current as string;
 
+    console.log(editorBoxOne, editorBoxTwo);
+
     try {
+      console.log(editorBoxOne, editorBoxTwo);
       codeSchema.parse({ description, editorBoxOne, editorBoxTwo });
     } catch (e) {
+      console.log(e);
       return;
     }
 
@@ -100,7 +106,9 @@ const Post = () => {
             className={`mt-4 h-[6rem] w-[41vw] resize-none rounded-md outline-none ${
               descriptionFocused ? "border-4" : ""
             } ${
-              (description.length >= 10 && description.length <= 280) ? "border-green-300" : "border-red-500"
+              description.length >= 10 && description.length <= 280
+                ? "border-green-300"
+                : "border-red-500"
             }`}
             value={description}
             onFocus={() => setDescriptionFocused(true)}
