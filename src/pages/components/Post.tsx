@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { z } from "zod";
 import { api } from "../../utils/api";
-import Editor from "@monaco-editor/react";
+import Editor, { type EditorProps } from "@monaco-editor/react";
 import LoadingSpinner from "./LoadingSpinner";
 
 // requirements for the post:
@@ -17,8 +17,12 @@ export const codeSchema = z.object({
       required_error: "Code is required",
     })
     .min(1),
-  editorBoxTwo: z.string(),
+  editorBoxTwo: z.string().optional(),
 });
+
+type IEditorProps = EditorProps & {
+  getValue: () => string | undefined;
+};
 
 const Post = () => {
   const defaultCode = "// write your code here";
@@ -37,17 +41,11 @@ const Post = () => {
 
   const createPost = api.post.createPost.useMutation();
 
-  console.log(createPost.status);
-
-  const handleEditorOneDidMount = (editor: {
-    getValue: () => string | undefined;
-  }) => {
+  const handleEditorOneDidMount = (editor: IEditorProps) => {
     editorRefOne.current = editor.getValue();
   };
 
-  const handleEditorTwoDidMount = (editor: {
-    getValue: () => string | undefined;
-  }) => {
+  const handleEditorTwoDidMount = (editor: IEditorProps) => {
     editorRefTwo.current = editor.getValue();
   };
 
@@ -75,7 +73,11 @@ const Post = () => {
       return;
     }
 
-    createPost.mutate({ description, editorBoxOne, editorBoxTwo });
+    if (editorRefTwo.current === defaultCode + secondBlockOptionalCode) {
+      createPost.mutate({ description, editorBoxOne });
+    } else {
+      createPost.mutate({ description, editorBoxOne, editorBoxTwo });
+    }
 
     setDescription("");
     setEditorOneValue(defaultCode);
