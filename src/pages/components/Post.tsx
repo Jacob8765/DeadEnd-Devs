@@ -3,6 +3,7 @@ import { z } from "zod";
 import { api } from "../../utils/api";
 import Editor, { type EditorProps } from "@monaco-editor/react";
 import LoadingSpinner from "./LoadingSpinner";
+import { Confetti } from "./Confetti";
 
 // requirements for the post:
 export const codeSchema = z.object({
@@ -77,6 +78,8 @@ const Post = () => {
     } else {
       createPost.mutate({ description, editorBoxOne, editorBoxTwo });
     }
+
+    Confetti();
 
     setDescription("");
     setEditorOneValue(defaultCode);
