@@ -69,7 +69,6 @@ const Post = () => {
     try {
       codeSchema.parse({ description, editorBoxOne, editorBoxTwo });
     } catch (e) {
-      console.log(e);
       return;
     }
 
