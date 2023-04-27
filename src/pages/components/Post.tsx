@@ -92,6 +92,12 @@ const Post = () => {
     setDescription(e.target.value);
   };
 
+  const descriptionStateOnBlur = () => {
+    if (validDescriptionLength) {
+      setDescriptionFocused(false);
+    }
+  }
+
   return (
     <>
       {createPost.error && (
@@ -106,13 +112,11 @@ const Post = () => {
             className={`mt-4 h-[6rem] w-[41vw] resize-none rounded-md outline-none ${
               descriptionFocused ? "border-4" : ""
             } ${
-              description.length >= 10 && description.length <= 280
-                ? "border-green-300"
-                : "border-red-500"
+              validDescriptionLength ? "border-green-300" : "border-red-500"
             }`}
             value={description}
             onFocus={() => setDescriptionFocused(true)}
-            onBlur={() => setDescriptionFocused(false)}
+            onBlur={descriptionStateOnBlur}
             // onChange has descriptionFocused func instead of setDescription because onChange needs to call two functions
             onChange={(e) => handleDescriptionChange(e)}
           />
