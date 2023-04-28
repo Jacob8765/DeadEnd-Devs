@@ -96,7 +96,7 @@ const Post = () => {
     if (validDescriptionLength) {
       setDescriptionFocused(false);
     }
-  }
+  };
 
   return (
     <>

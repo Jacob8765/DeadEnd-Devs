@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "./trpc";
 import { post } from "./routers/post";
 import { user } from "./routers/user";
+import { infinitePost } from "./routers/infinitePost";
 
 /**
  * This is the primary router for your server.
@@ -9,6 +10,7 @@ import { user } from "./routers/user";
  */
 export const appRouter = createTRPCRouter({
   post,
+  infinitePost,
   user,
 });
 
