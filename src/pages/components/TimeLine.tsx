@@ -16,6 +16,7 @@ function TimeLineFeed() {
   const observer = useRef<IntersectionObserver | null>(null);
   const [shouldQueryPosts, setShouldQueryPosts] = useState(false);
 
+  // grabs the last element in the current list of posts
   const lastElementRef = useCallback((node: HTMLDivElement) => {
     if (!node) return null;
 
@@ -97,7 +98,13 @@ function TimeLineFeed() {
       ) : (
         <LoadingSpinner />
       )}
-      {shouldQueryPosts && <LoadingSpinner />}
+      {shouldQueryPosts &&
+      data &&
+      data.pages[data.pages.length - 1]?.nextCursor ? (
+        <LoadingSpinner />
+      ) : (
+        <p className="text-white">No more posts. Come back tomorrow!</p>
+      )}
     </div>
   );
 }
