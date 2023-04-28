@@ -30,11 +30,9 @@ function TimeLineFeed() {
       observer.current?.disconnect();
     }
 
-    //console.log("runnigng", lastElementRef)
     observer.current?.observe(node as Element);
   }, []);
 
-  // const timeLinePost = api.user.getFeed.useQuery();
   const { data, fetchNextPage } =
     api.infinitePost.infinitePost.useInfiniteQuery(
       {
@@ -46,11 +44,8 @@ function TimeLineFeed() {
     );
 
   useEffect(() => {
-    const handleFetchNextPage = async () => {
-      await fetchNextPage();
-    };
     if (shouldQueryPosts) {
-      void handleFetchNextPage();
+      void fetchNextPage();
     }
   }, [fetchNextPage, shouldQueryPosts]);
 
@@ -102,6 +97,7 @@ function TimeLineFeed() {
       ) : (
         <LoadingSpinner />
       )}
+      {shouldQueryPosts && <LoadingSpinner />}
     </div>
   );
 }
