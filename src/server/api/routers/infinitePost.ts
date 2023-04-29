@@ -13,7 +13,6 @@ export const infinitePost = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { cursor, options } = input;
       const { limit, sort, filters } = options;
-      console.info("have cursor", cursor);
 
       const items = await ctx.prisma.blockPost.findMany({
         take: limit + 1, // get an extra item at the end which we'll use as next cursor
@@ -30,7 +29,6 @@ export const infinitePost = createTRPCRouter({
           },
         },
       });
-      //console.log("items", items);
 
       let nextCursor: typeof cursor | undefined = undefined;
       if (items.length > limit) {

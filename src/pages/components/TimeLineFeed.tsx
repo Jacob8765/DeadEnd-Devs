@@ -1,13 +1,13 @@
-import Image from "next/image";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { api } from "../../utils/api";
 import MarkdownTextarea from "./MarkdownTextarea";
 import LoadingSpinner from "./LoadingSpinner";
-import Link from "next/link";
 import {
   timelineOptions,
   type TimelineOptions,
 } from "../../utils/timelineOptions";
+import CreatedByUser from "./CreatedByUser";
+import PostContent from "./PostContent";
 
 const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const parsedResult = timelineOptions.safeParse(props.options);
@@ -71,36 +71,22 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
               }
               className="max-w-[w-full]"
             >
-              <p className="mx-auto mb-7 max-w-[60ch] break-words text-white">
-                {post.text}
-              </p>
-              <div className="m-4 flex justify-evenly break-words">
-                <MarkdownTextarea className="max-w-[45vw]">
-                  {post.leftBlock}
-                </MarkdownTextarea>
-                {post.rightBlock && (
-                  <MarkdownTextarea className="max-w-[45vw]">
-                    {post.rightBlock}
-                  </MarkdownTextarea>
-                )}
-              </div>
+              <PostContent
+                postContent={{
+                  post: {
+                    description: post.text,
+                    leftBlock: post.leftBlock,
+                    rightBlock: post.rightBlock,
+                  },
+                }}
+              />
               <p>Post made by:</p>
-              <Link href={`/user/${post.authorID}`}>
-                <div className="mb-24  mt-6 inline-flex gap-5 rounded-md border border-white">
-                  <span className="my-auto ml-4 text-white">
-                    {post.author.name ?? "a user"}
-                  </span>
-                  {post.author.image && post.author.name && (
-                    <Image
-                      className="relative overflow-hidden rounded-md"
-                      src={`${post.author.image}`}
-                      alt={`${post.author.name}'s profile pic!`}
-                      width={55}
-                      height={55}
-                    />
-                  )}
-                </div>
-              </Link>
+              <CreatedByUser
+                post={{
+                  author: { name: post.author.name, image: post.author.image },
+                  authorID: post.authorID,
+                }}
+              />
             </div>
           ))
         )
