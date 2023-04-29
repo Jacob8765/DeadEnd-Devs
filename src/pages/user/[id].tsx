@@ -1,15 +1,31 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { api } from "../../utils/api";
+import { TimelineOptions } from "../../utils/timelineOptions";
+import TimeLineFeed from "../components/TimeLineFeed";
 
 const User = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = api.user.getPostsFromUser.useQuery(id as string);
+  if (!id) return null;
 
-  return <div>
-    
-  </div>;
+  const options: TimelineOptions = {
+    sort: "asc",
+    limit: 5,
+    filters: {
+      author: {
+        is: {
+          id: id as string,
+        },
+      },
+    },
+  };
+
+  return (
+    <div>
+      <h1>User: {id}</h1>
+      <TimeLineFeed options={options} />
+    </div>
+  );
 };
 
 export default User;

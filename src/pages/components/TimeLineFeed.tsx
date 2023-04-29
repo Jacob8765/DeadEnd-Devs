@@ -1,24 +1,19 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { api } from "../../utils/api";
-import Post from "./Post";
 import MarkdownTextarea from "./MarkdownTextarea";
 import LoadingSpinner from "./LoadingSpinner";
 import Link from "next/link";
-import { timelineFilters, TimelineFilters } from "../../utils/timelineFilters";
+import { timelineOptions, TimelineOptions } from "../../utils/timelineOptions";
 
-const TimeLine = (props: { options: TimelineFilters}) => (
-  <div className="ml-auto flex w-full flex-col rounded-l-md bg-slate-600 text-center">
-    <Post />
-    <TimeLineFeed options={props.options} />
-  </div>
-);
-
-function TimeLineFeed(props: { options: TimelineFilters }) {
-  const parsedResult = timelineFilters.safeParse(props.options);
+const TimeLineFeed = (props: { options: TimelineOptions }) => {
+  const parsedResult = timelineOptions.safeParse(props.options);
   if (!parsedResult.success) {
-    console.log(parsedResult.error.message)
-    throw new Error("Invalid options passed to TimeLineFeed", parsedResult.error);
+    console.log(parsedResult.error.message);
+    throw new Error(
+      "Invalid options passed to TimeLineFeed",
+      parsedResult.error
+    );
   }
 
   const options = parsedResult.data;
@@ -38,25 +33,29 @@ function TimeLineFeed(props: { options: TimelineFilters }) {
         { threshold: 0 }
       );
     } else {
+      console.log("disconnecting observer");
       observer.current?.disconnect();
     }
 
     observer.current?.observe(node as Element);
   }, []);
 
-  const { data, fetchNextPage } =
-    api.infinitePost.infinitePost.useInfiniteQuery(options, {
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-    });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    api.infinitePost.infinitePost.useInfiniteQuery(
+      { options },
+      {
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+      }
+    );
 
   useEffect(() => {
-    if (shouldQueryPosts) {
+    if (shouldQueryPosts && hasNextPage) {
       void fetchNextPage();
     }
   }, [fetchNextPage, shouldQueryPosts]);
 
   return (
-    <div>
+    <div className="rounded-l-md bg-slate-600 text-center">
       {data ? (
         data?.pages.map((page, i) =>
           page.items.map((post, j) => (
@@ -105,15 +104,13 @@ function TimeLineFeed(props: { options: TimelineFilters }) {
       ) : (
         <LoadingSpinner />
       )}
-      {shouldQueryPosts &&
-      data &&
-      data.pages[data.pages.length - 1]?.nextCursor ? (
+      {isFetchingNextPage ? (
         <LoadingSpinner />
-      ) : (
+      ) : hasNextPage ? (
         <p className="text-white">No more posts. Come back tomorrow!</p>
-      )}
+      ) : null}
     </div>
   );
-}
+};
 
-export default TimeLine;
+export default TimeLineFeed;
