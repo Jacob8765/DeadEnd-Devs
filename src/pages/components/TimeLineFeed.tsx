@@ -58,7 +58,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
               />
               <p>Post made by:</p>
               <CreatedByUser
-                post={{
+                userInfo={{
                   author: { name: post.author.name, image: post.author.image },
                   authorID: post.authorID,
                 }}

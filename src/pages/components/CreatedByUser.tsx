@@ -3,9 +3,9 @@ import Link from "next/link";
 import React from "react";
 import { CreatedByUser } from "../../utils/createdByUser";
 
-const CreatedByUser = (credentials: { post: CreatedByUser }) => {
-  const { authorID } = credentials.post;
-  const { name, image } = credentials.post.author;
+const CreatedByUser = (credentials: { userInfo: CreatedByUser }) => {
+  const { authorID } = credentials.userInfo;
+  const { name, image } = credentials.userInfo.author;
   return (
     <Link href={`/user/${authorID}`}>
       <div className="mb-24  mt-6 inline-flex gap-5 rounded-md border border-white">
