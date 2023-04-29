@@ -7,6 +7,7 @@ import {
 } from "../../utils/timelineOptions";
 import CreatedByUser from "./CreatedByUser";
 import PostContent from "./PostContent";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const parsedResult = timelineOptions.safeParse(props.options);
@@ -20,27 +21,9 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
 
   const options = parsedResult.data;
 
-  const observer = useRef<IntersectionObserver | null>(null);
-  const [shouldQueryPosts, setShouldQueryPosts] = useState(false);
-
-  // grabs the last element in the current list of posts
-  const lastElementRef = useCallback((node: HTMLDivElement) => {
-    if (!node) return null;
-
-    if (!observer.current) {
-      observer.current = new IntersectionObserver(
-        ([entry]) => {
-          entry && setShouldQueryPosts(entry.isIntersecting);
-        },
-        { threshold: 0 }
-      );
-    } else {
-      console.log("disconnecting observer");
-      observer.current?.disconnect();
-    }
-
-    observer.current?.observe(node as Element);
-  }, []);
+  const lastElementRef = useIntersectionObserver(() => {
+    void fetchNextPage();
+  });
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     api.infinitePost.infinitePost.useInfiniteQuery(
@@ -49,12 +32,6 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       }
     );
-
-  useEffect(() => {
-    if (shouldQueryPosts && hasNextPage) {
-      void fetchNextPage();
-    }
-  }, [fetchNextPage, hasNextPage, shouldQueryPosts]);
 
   return (
     <div className="rounded-l-md bg-slate-600 text-center">
