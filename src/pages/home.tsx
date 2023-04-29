@@ -1,12 +1,9 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import type { Session } from "next-auth";
 import { useSession } from "next-auth/react";
-import TimeLine from "./components/TimeLineFeed";
 import Navbar from "./components/Navbar";
 import { getSession } from "next-auth/react";
 import React from "react";
-import { parseFilterArgs } from "@tanstack/react-query";
 import { type TimelineOptions } from "../utils/timelineOptions";
 import Post from "./components/Post";
 import TimeLineFeed from "./components/TimeLineFeed";
@@ -19,11 +16,11 @@ const Home: NextPage = () => {
     filters: {
       author: {
         isNot: {
-          id: session.user!.id,
+          id: session.user ? session.user.id : "",
         },
       },
     },
-    sort: "asc",
+    sort: "desc",
     limit: 5,
   };
 

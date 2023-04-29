@@ -1,15 +1,17 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { TimelineOptions } from "../../utils/timelineOptions";
+import { type TimelineOptions } from "../../utils/timelineOptions";
 import TimeLineFeed from "../components/TimeLineFeed";
 
 const User = () => {
   const router = useRouter();
   const { id } = router.query;
+
+  // important to check for id here, otherwise error will be thrown
   if (!id) return null;
 
   const options: TimelineOptions = {
-    sort: "asc",
+    sort: "desc",
     limit: 5,
     filters: {
       author: {

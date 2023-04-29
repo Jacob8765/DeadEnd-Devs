@@ -4,7 +4,10 @@ import { api } from "../../utils/api";
 import MarkdownTextarea from "./MarkdownTextarea";
 import LoadingSpinner from "./LoadingSpinner";
 import Link from "next/link";
-import { timelineOptions, TimelineOptions } from "../../utils/timelineOptions";
+import {
+  timelineOptions,
+  type TimelineOptions,
+} from "../../utils/timelineOptions";
 
 const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const parsedResult = timelineOptions.safeParse(props.options);
@@ -52,7 +55,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
     if (shouldQueryPosts && hasNextPage) {
       void fetchNextPage();
     }
-  }, [fetchNextPage, shouldQueryPosts]);
+  }, [fetchNextPage, hasNextPage, shouldQueryPosts]);
 
   return (
     <div className="rounded-l-md bg-slate-600 text-center">
@@ -106,7 +109,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
       )}
       {isFetchingNextPage ? (
         <LoadingSpinner />
-      ) : hasNextPage ? (
+      ) : !hasNextPage ? (
         <p className="text-white">No more posts. Come back tomorrow!</p>
       ) : null}
     </div>
