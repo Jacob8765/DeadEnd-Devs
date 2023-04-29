@@ -41,7 +41,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
             <div
               key={post.id}
               ref={
-                i == data.pages.length - 1 && j == page.items.length - 1
+                i == data.pages.length - 1 && j == page.items.length - 3
                   ? lastElementRef
                   : null
               }
