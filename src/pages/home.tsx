@@ -1,11 +1,29 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import TimeLine from "./components/TimeLine";
+import { useSession } from "next-auth/react";
 import Navbar from "./components/Navbar";
 import { getSession } from "next-auth/react";
 import React from "react";
+import { type TimelineOptions } from "../utils/timelineOptions";
+import Post from "./components/Post";
+import TimeLineFeed from "./components/TimeLineFeed";
 
 const Home: NextPage = () => {
+  const { data: session } = useSession();
+  if (!session) return null;
+
+  const options: TimelineOptions = {
+    filters: {
+      author: {
+        isNot: {
+          id: session.user ? session.user.id : "",
+        },
+      },
+    },
+    sort: "desc",
+    limit: 5,
+  };
+
   return (
     <>
       <Head>
@@ -15,7 +33,10 @@ const Home: NextPage = () => {
       </Head>
       <div>
         <Navbar />
-        <TimeLine />
+        <div className="ml-auto flex w-full flex-col rounded-l-md bg-slate-600 text-center">
+          <Post />
+          <TimeLineFeed options={options} />
+        </div>
       </div>
     </>
   );

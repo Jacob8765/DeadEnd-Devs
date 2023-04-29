@@ -1,28 +1,22 @@
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { timelineOptions } from "../../../utils/timelineOptions";
 
 export const user = createTRPCRouter({
-  getPostsFromUser: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.blockPost.findMany({
-      where: {
-        authorID: ctx.session.user.id,
-      },
-    });
-  }),
+  getPostsFromUser: protectedProcedure
+    .input(timelineOptions)
+    .query(({ ctx, input }) => {
+      return ctx.prisma.blockPost.findMany({
+        where: {
+          ...input.filters,
+        },
+        orderBy: { createdAt: input.sort },
+      });
+    }),
 
-  getFeed: publicProcedure.query(({ ctx }) => {
+  getFeed: publicProcedure.input(timelineOptions).query(({ ctx, input }) => {
     return ctx.prisma.blockPost.findMany({
-      where: {
-        author: {
-          isNot: {
-            email: ctx.session?.user?.email,
-          },
-        },
-      },
-      orderBy: [
-        {
-          createdAt: "desc",
-        },
-      ],
+      where: input.filters,
+      orderBy: { createdAt: input.sort },
       include: {
         author: {
           select: {
