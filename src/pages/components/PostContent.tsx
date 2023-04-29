@@ -1,6 +1,5 @@
 import React from "react";
 import MarkdownTextarea from "./MarkdownTextarea";
-// import { PostContent } from "../../utils/postContent";
 import type { BlockPost } from "@prisma/client";
 
 const PostContent = (postContent: { content: BlockPost }) => {
