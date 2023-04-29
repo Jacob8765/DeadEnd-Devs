@@ -2,8 +2,8 @@ import React from "react";
 import MarkdownTextarea from "./MarkdownTextarea";
 import { PostContent } from "../../utils/postContent";
 
-const PostContent = (content: {postContent: PostContent}) => {
-    const { post } = content.postContent;
+const PostContent = (content: { postContent: PostContent }) => {
+  const { post } = content.postContent;
   return (
     <>
       <p className="mx-auto mb-7 max-w-[60ch] break-words text-white">
