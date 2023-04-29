@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { api } from "../../utils/api";
-import MarkdownTextarea from "./MarkdownTextarea";
 import LoadingSpinner from "./LoadingSpinner";
 import {
   timelineOptions,
