@@ -7,12 +7,10 @@ export const useIntersectionObserver = (
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   const handleIntersection = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          onIntersection(entry);
-        }
-      });
+    ([entry]: IntersectionObserverEntry[]) => {
+      if (entry && entry.isIntersecting) {
+        onIntersection(entry);
+      }
     },
     [onIntersection]
   );
