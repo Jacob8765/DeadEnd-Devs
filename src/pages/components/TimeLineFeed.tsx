@@ -33,6 +33,8 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
       }
     );
 
+  // if (!data) return
+
   return (
     <div className="rounded-l-md bg-slate-600 text-center">
       {data ? (
@@ -63,7 +65,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
       )}
       {isFetchingNextPage ? (
         <LoadingSpinner />
-      ) : !hasNextPage ? (
+      ) : !hasNextPage && data && data?.pages.length > 1 ? (
         <p className="text-white">No more posts. Come back tomorrow!</p>
       ) : null}
     </div>
