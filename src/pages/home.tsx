@@ -4,6 +4,7 @@ import TimeLine from "./components/TimeLine";
 import Navbar from "./components/Navbar";
 import { getSession } from "next-auth/react";
 import React from "react";
+import { parseFilterArgs } from "@tanstack/react-query";
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
       </Head>
       <div>
         <Navbar />
-        <TimeLine />
+        <TimeLine options={{}}/>
       </div>
     </>
   );

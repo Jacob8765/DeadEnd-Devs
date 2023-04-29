@@ -4,15 +4,25 @@ import { api } from "../../utils/api";
 import Post from "./Post";
 import MarkdownTextarea from "./MarkdownTextarea";
 import LoadingSpinner from "./LoadingSpinner";
+import Link from "next/link";
+import { timelineFilters, TimelineFilters } from "../../utils/timelineFilters";
 
-const TimeLine = () => (
+const TimeLine = (props: { options: TimelineFilters}) => (
   <div className="ml-auto flex w-full flex-col rounded-l-md bg-slate-600 text-center">
     <Post />
-    <TimeLineFeed />
+    <TimeLineFeed options={props.options} />
   </div>
 );
 
-function TimeLineFeed() {
+function TimeLineFeed(props: { options: TimelineFilters }) {
+  const parsedResult = timelineFilters.safeParse(props.options);
+  if (!parsedResult.success) {
+    console.log(parsedResult.error.message)
+    throw new Error("Invalid options passed to TimeLineFeed", parsedResult.error);
+  }
+
+  const options = parsedResult.data;
+
   const observer = useRef<IntersectionObserver | null>(null);
   const [shouldQueryPosts, setShouldQueryPosts] = useState(false);
 
@@ -35,14 +45,9 @@ function TimeLineFeed() {
   }, []);
 
   const { data, fetchNextPage } =
-    api.infinitePost.infinitePost.useInfiniteQuery(
-      {
-        limit: 5,
-      },
-      {
-        getNextPageParam: (lastPage) => lastPage.nextCursor,
-      }
-    );
+    api.infinitePost.infinitePost.useInfiniteQuery(options, {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    });
 
   useEffect(() => {
     if (shouldQueryPosts) {
@@ -83,13 +88,15 @@ function TimeLineFeed() {
                   {post.author.name ?? "a user"}
                 </span>
                 {post.author.image && post.author.name && (
-                  <Image
-                    className="relative overflow-hidden rounded-md"
-                    src={`${post.author.image}`}
-                    alt={`${post.author.name}'s profile pic!`}
-                    width={55}
-                    height={55}
-                  />
+                  <Link href={`/user/${post.authorID}`}>
+                    <Image
+                      className="relative overflow-hidden rounded-md"
+                      src={`${post.author.image}`}
+                      alt={`${post.author.name}'s profile pic!`}
+                      width={55}
+                      height={55}
+                    />
+                  </Link>
                 )}
               </div>
             </div>
