@@ -1,21 +1,20 @@
 import React from "react";
 import MarkdownTextarea from "./MarkdownTextarea";
-import { PostContent } from "../../utils/postContent";
+// import { PostContent } from "../../utils/postContent";
+import type { BlockPost } from "@prisma/client";
 
-const PostContent = (content: { postContent: PostContent }) => {
-  const { post } = content.postContent;
+const PostContent = (postContent: { content: BlockPost }) => {
+  const { text, leftBlock, rightBlock } = postContent.content;
   return (
     <>
-      <p className="mx-auto mb-7 max-w-[60ch] break-words text-white">
-        {post.description}
-      </p>
+      <p className="mx-auto mb-7 max-w-[60ch] break-words text-white">{text}</p>
       <div className="m-4 flex justify-evenly break-words">
         <MarkdownTextarea className="max-w-[45vw]">
-          {post.leftBlock}
+          {leftBlock}
         </MarkdownTextarea>
-        {post.rightBlock && (
+        {rightBlock && (
           <MarkdownTextarea className="max-w-[45vw]">
-            {post.rightBlock}
+            {rightBlock}
           </MarkdownTextarea>
         )}
       </div>

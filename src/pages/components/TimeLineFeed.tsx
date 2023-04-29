@@ -47,15 +47,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
               }
               className="max-w-[w-full]"
             >
-              <PostContent
-                postContent={{
-                  post: {
-                    description: post.text,
-                    leftBlock: post.leftBlock,
-                    rightBlock: post.rightBlock,
-                  },
-                }}
-              />
+              <PostContent content={post} />
               <p>Post made by:</p>
               <CreatedByUser
                 userInfo={{
