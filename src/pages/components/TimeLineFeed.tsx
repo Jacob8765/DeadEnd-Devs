@@ -85,12 +85,12 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
                 )}
               </div>
               <p>Post made by:</p>
-              <div className="mb-24  mt-6 inline-flex gap-5 rounded-md border border-white">
-                <span className="my-auto ml-4 text-white">
-                  {post.author.name ?? "a user"}
-                </span>
-                {post.author.image && post.author.name && (
-                  <Link href={`/user/${post.authorID}`}>
+              <Link href={`/user/${post.authorID}`}>
+                <div className="mb-24  mt-6 inline-flex gap-5 rounded-md border border-white">
+                  <span className="my-auto ml-4 text-white">
+                    {post.author.name ?? "a user"}
+                  </span>
+                  {post.author.image && post.author.name && (
                     <Image
                       className="relative overflow-hidden rounded-md"
                       src={`${post.author.image}`}
@@ -98,9 +98,9 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
                       width={55}
                       height={55}
                     />
-                  </Link>
-                )}
-              </div>
+                  )}
+                </div>
+              </Link>
             </div>
           ))
         )
