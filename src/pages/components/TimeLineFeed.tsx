@@ -1,20 +1,12 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { api } from "../../utils/api";
-import Post from "./Post";
 import MarkdownTextarea from "./MarkdownTextarea";
 import LoadingSpinner from "./LoadingSpinner";
 import Link from "next/link";
 import { timelineOptions, TimelineOptions } from "../../utils/timelineOptions";
 
-const TimeLine = (props: { options: TimelineOptions }) => (
-  <div className="ml-auto flex w-full flex-col rounded-l-md bg-slate-600 text-center">
-    <Post />
-    <TimeLineFeed options={props.options} />
-  </div>
-);
-
-function TimeLineFeed(props: { options: TimelineOptions }) {
+const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const parsedResult = timelineOptions.safeParse(props.options);
   if (!parsedResult.success) {
     console.log(parsedResult.error.message);
@@ -63,7 +55,7 @@ function TimeLineFeed(props: { options: TimelineOptions }) {
   }, [fetchNextPage, shouldQueryPosts]);
 
   return (
-    <div>
+    <div className="rounded-l-md bg-slate-600 text-center">
       {data ? (
         data?.pages.map((page, i) =>
           page.items.map((post, j) => (
@@ -119,6 +111,6 @@ function TimeLineFeed(props: { options: TimelineOptions }) {
       ) : null}
     </div>
   );
-}
+};
 
-export default TimeLine;
+export default TimeLineFeed;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { TimelineOptions } from "../../utils/timelineOptions";
-import TimeLine from "../components/TimeLine";
+import TimeLineFeed from "../components/TimeLineFeed";
 
 const User = () => {
   const router = useRouter();
@@ -23,7 +23,7 @@ const User = () => {
   return (
     <div>
       <h1>User: {id}</h1>
-      <TimeLine options={options} />
+      <TimeLineFeed options={options} />
     </div>
   );
 };

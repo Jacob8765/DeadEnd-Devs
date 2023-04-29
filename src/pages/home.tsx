@@ -2,12 +2,14 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import type { Session } from "next-auth";
 import { useSession } from "next-auth/react";
-import TimeLine from "./components/TimeLine";
+import TimeLine from "./components/TimeLineFeed";
 import Navbar from "./components/Navbar";
 import { getSession } from "next-auth/react";
 import React from "react";
 import { parseFilterArgs } from "@tanstack/react-query";
 import { type TimelineOptions } from "../utils/timelineOptions";
+import Post from "./components/Post";
+import TimeLineFeed from "./components/TimeLineFeed";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
@@ -34,7 +36,10 @@ const Home: NextPage = () => {
       </Head>
       <div>
         <Navbar />
-        <TimeLine options={options} />
+        <div className="ml-auto flex w-full flex-col rounded-l-md bg-slate-600 text-center">
+          <Post />
+          <TimeLineFeed options={options} />
+        </div>
       </div>
     </>
   );
