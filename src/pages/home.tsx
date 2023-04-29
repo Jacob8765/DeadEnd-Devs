@@ -1,12 +1,30 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import type { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import TimeLine from "./components/TimeLine";
 import Navbar from "./components/Navbar";
 import { getSession } from "next-auth/react";
 import React from "react";
 import { parseFilterArgs } from "@tanstack/react-query";
+import { type TimelineOptions } from "../utils/timelineOptions";
 
 const Home: NextPage = () => {
+  const { data: session } = useSession();
+  if (!session) return null;
+
+  const options: TimelineOptions = {
+    filters: {
+      author: {
+        isNot: {
+          id: session.user!.id,
+        },
+      },
+    },
+    sort: "asc",
+    limit: 5,
+  };
+
   return (
     <>
       <Head>
@@ -16,7 +34,7 @@ const Home: NextPage = () => {
       </Head>
       <div>
         <Navbar />
-        <TimeLine options={{}}/>
+        <TimeLine options={options} />
       </div>
     </>
   );

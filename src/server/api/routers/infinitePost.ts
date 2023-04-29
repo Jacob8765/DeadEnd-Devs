@@ -1,26 +1,25 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { timelineFilters } from "../../../utils/timelineFilters";
+import { timelineOptions } from "../../../utils/timelineOptions";
 
 export const infinitePost = createTRPCRouter({
   infinitePost: publicProcedure
     .input(
-      timelineFilters
+      z.object({
+        options: timelineOptions,
+        cursor: z.string().nullish(),
+      })
     )
     .query(async ({ ctx, input }) => {
-      const { cursor, filters, sort, limit } = input;
+      const { cursor, options } = input;
+      const { limit, sort, filters } = options;
+      console.info("have cursor", cursor);
+
       const items = await ctx.prisma.blockPost.findMany({
         take: limit + 1, // get an extra item at the end which we'll use as next cursor
-        where: {
-          author: {
-            isNot: {
-              email: ctx.session?.user?.email,
-            },
-            ...filters,
-          },
-        },
+        where: filters,
         cursor: cursor ? { id: cursor } : undefined,
-        orderBy: {createdAt: sort},
+        orderBy: { createdAt: sort },
         include: {
           author: {
             select: {
@@ -31,7 +30,7 @@ export const infinitePost = createTRPCRouter({
           },
         },
       });
-      console.log("items", items);
+      //console.log("items", items);
 
       let nextCursor: typeof cursor | undefined = undefined;
       if (items.length > limit) {
