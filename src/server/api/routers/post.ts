@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { codeSchema } from "../../../components/Post";
+=======
+import { codeSchema } from "../../../pages/components/Post"
+>>>>>>> Stashed changes
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const post = createTRPCRouter({

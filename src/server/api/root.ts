@@ -1,4 +1,5 @@
 import { createTRPCRouter } from "./trpc";
+import "module-alias/register";
 import { post } from "./routers/post";
 import { user } from "./routers/user";
 import { infinitePost } from "./routers/infinitePost";

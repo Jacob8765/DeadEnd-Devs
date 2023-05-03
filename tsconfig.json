@@ -24,5 +24,8 @@
     "**/*.mjs",
     "src/pages/_document.jsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "paths": {
+    "@pages": ["./src/pages/*"],
+  }
 }
