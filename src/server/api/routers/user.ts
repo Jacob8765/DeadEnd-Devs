@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
-import { timelineOptions } from "../../../utils/timelineOptions";
+import { timelineOptions } from "@/utils/timelineOptions";
 
 export const user = createTRPCRouter({
   getPostsFromUser: protectedProcedure

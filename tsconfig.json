@@ -14,7 +14,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/src/*": ["src/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/components/*": ["src/components/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/types/*": ["src/types/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/api/*": ["src/server/api/*"],
+
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -25,7 +36,4 @@
     "src/pages/_document.jsx"
   ],
   "exclude": ["node_modules"],
-  "paths": {
-    "@pages": ["./src/pages/*"],
-  }
 }

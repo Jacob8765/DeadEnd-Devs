@@ -1,13 +1,10 @@
 import React from "react";
-import { api } from "../utils/api";
+import { api } from "@/utils/api";
 import LoadingSpinner from "./LoadingSpinner";
-import {
-  timelineOptions,
-  type TimelineOptions,
-} from "../utils/timelineOptions";
+import { timelineOptions, type TimelineOptions } from "@/utils/timelineOptions";
 import CreatedByUser from "./CreatedByUser";
 import PostContent from "./PostContent";
-import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
 const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const parsedResult = timelineOptions.safeParse(props.options);

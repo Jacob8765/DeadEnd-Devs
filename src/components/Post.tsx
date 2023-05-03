@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { z } from "zod";
-import { api } from "../utils/api";
+import { api } from "@/utils/api";
 import Editor, { type EditorProps } from "@monaco-editor/react";
 import LoadingSpinner from "./LoadingSpinner";
 import Confetti from "./Confetti";
