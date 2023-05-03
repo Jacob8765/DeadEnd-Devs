@@ -47,7 +47,7 @@ const useIntersectionObserver = (
     [handleIntersection]
   );
 
-  return lastElementRef
+  return lastElementRef;
 };
 
 export default useIntersectionObserver;
