@@ -1,7 +1,6 @@
 import type { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
 import Button from "./Button";
 
 const Navbar = () => {

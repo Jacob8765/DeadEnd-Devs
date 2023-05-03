@@ -1,4 +1,3 @@
-import React from "react";
 import { useRouter } from "next/router";
 import { type TimelineOptions } from "@/utils/timelineOptions";
 import TimeLineFeed from "@/components/TimeLineFeed";

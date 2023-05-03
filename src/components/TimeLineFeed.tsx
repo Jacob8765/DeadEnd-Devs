@@ -1,4 +1,3 @@
-import React from "react";
 import { api } from "@/utils/api";
 import LoadingSpinner from "./LoadingSpinner";
 import { timelineOptions, type TimelineOptions } from "@/utils/timelineOptions";

@@ -1,4 +1,3 @@
-import React from "react";
 import MarkdownTextarea from "./MarkdownTextarea";
 import type { BlockPost } from "@prisma/client";
 

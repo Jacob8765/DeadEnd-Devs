@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { timelineOptions } from "../../../utils/timelineOptions";
+import { timelineOptions } from "@/utils/timelineOptions";
 
 export const infinitePost = createTRPCRouter({
   infinitePost: publicProcedure

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { z } from "zod";
 import { api } from "@/utils/api";
 import Editor, { type EditorProps } from "@monaco-editor/react";
