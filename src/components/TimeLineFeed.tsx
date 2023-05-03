@@ -8,7 +8,6 @@ import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const parsedResult = timelineOptions.safeParse(props.options);
   if (!parsedResult.success) {
-    console.log(parsedResult.error.message);
     throw new Error(
       "Invalid options passed to TimeLineFeed",
       parsedResult.error
@@ -18,6 +17,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const options = parsedResult.data;
 
   const lastElementRef = useIntersectionObserver(() => {
+    // function will be called when the last element is in view
     void fetchNextPage();
   });
 
@@ -28,8 +28,6 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       }
     );
-
-  // if (!data) return
 
   return (
     <div className="rounded-l-md bg-slate-600 text-center">
