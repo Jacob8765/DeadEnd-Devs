@@ -49,6 +49,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         BlockPost[]
+  likes         Like[]
+  comments      Comment[]
 }
 
 model VerificationToken {
@@ -74,4 +76,20 @@ model BlockPost {
     updatedAt DateTime @updatedAt()
 
     @@index([authorID])
+}
+model Comment {
+  id String @id @default(cuid())
+  reponse String
+  author User @relation(fields: [authorID], references: [id])
+  authorID String
+
+  @@index([authorID])
+}
+
+model Like {
+  id String @id @default(cuid())
+  author User @relation(fields: [authorID], references: [id])
+  authorID String
+
+  @@index([authorID])
 }
