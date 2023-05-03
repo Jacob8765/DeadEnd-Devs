@@ -1,8 +1,8 @@
 import type { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
-import MarkdownTextarea from "./components/MarkdownTextarea";
-import Button from "./components/Button";
+import MarkdownTextarea from "../components/MarkdownTextarea";
+import Button from "../components/Button";
 
 const LandingPage = () => (
   <div className="min-h-screen bg-gray-100">

@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react";
 
-export const useIntersectionObserver = (
+const useIntersectionObserver = (
   onIntersection: (entry: IntersectionObserverEntry) => void,
   threshold = 0
 ) => {
@@ -44,3 +44,5 @@ export const useIntersectionObserver = (
 
   return lastElementRef;
 };
+
+export default useIntersectionObserver;

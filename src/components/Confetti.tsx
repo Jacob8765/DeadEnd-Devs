@@ -21,10 +21,12 @@ const fire = async (
   );
 };
 
-export const Confetti = async () => {
+const Confetti = async () => {
   await fire(0.35, {
     spread: 100,
     decay: 0.91,
     scalar: 0.8,
   });
 };
+
+export default Confetti;

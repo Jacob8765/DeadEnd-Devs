@@ -1,4 +1,4 @@
-import { codeSchema } from "../../../pages/components/Post";
+import { codeSchema } from "../../../components/Post";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const post = createTRPCRouter({
