@@ -4,17 +4,11 @@ import { timelineOptions, type TimelineOptions } from "@/utils/timelineOptions";
 import CreatedByUser from "./CreatedByUser";
 import PostContent from "./PostContent";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import Vote from "./Vote";
 
 const TimeLineFeed = (props: { options: TimelineOptions }) => {
-  const parsedResult = timelineOptions.safeParse(props.options);
-  if (!parsedResult.success) {
-    throw new Error(
-      "Invalid options passed to TimeLineFeed",
-      parsedResult.error
-    );
-  }
-
-  const options = parsedResult.data;
+  const parsedResult = timelineOptions.parse(props.options);
+  const options = parsedResult;
 
   const lastElementRef = useIntersectionObserver(() => {
     // function will be called when the last element is in view
@@ -28,6 +22,8 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       }
     );
+
+  
 
   return (
     <div className="rounded-l-md bg-slate-600 text-center">
@@ -44,6 +40,8 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
               className="max-w-[w-full]"
             >
               <PostContent content={post} />
+              <p>likes: {post.voteState ?? "0"}</p>
+              <Vote postId={post.id} />
               <p>Post made by:</p>
               <CreatedByUser
                 userInfo={{

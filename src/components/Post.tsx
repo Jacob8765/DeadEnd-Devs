@@ -79,7 +79,7 @@ const Post = () => {
       createPost.mutate({ description, editorBoxOne, editorBoxTwo });
     }
 
-    Promise.resolve(Confetti()).catch((e) => console.log(e));
+    void Confetti();
 
     setDescription("");
     setEditorOneValue(defaultCode);

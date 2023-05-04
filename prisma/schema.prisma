@@ -51,7 +51,7 @@ model User {
   sessions      Session[]
   posts         BlockPost[]
   votes         Vote[]
-  comments      Comment[]
+  // comments      Comment[]
 }
 
 model VerificationToken {
@@ -75,19 +75,26 @@ model BlockPost {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
-  votes     Vote[]
+  upVotes   Vote[]
+  voteState Int    @default(0)
+  // comments  Comment[]
 
   @@index([authorID])
 }
 
-model Comment {
-  id       String @id @default(cuid())
-  reponse  String
-  author   User   @relation(fields: [authorID], references: [id])
-  authorID String
+// model Comment {
+//   id       String @id @default(cuid())
+//   reponse  String
+//   author   User   @relation(fields: [authorID], references: [id])
+//   authorID String
+//   voteState Int    @default(0)
+//   upvote   Vote[]
+//   BlockPost BlockPost @relation(fields: [postID], references: [id])
+//   postID   String
 
-  @@index([authorID])
-}
+//   @@index([authorID])
+//   @@index([postID])
+// }
 
 model Vote {
   id        String    @id @default(cuid())
@@ -95,7 +102,10 @@ model Vote {
   postVoted BlockPost @relation(fields: [postID], references: [id])
   postID    String
   authorID  String
+  // comment Comment? @relation(fields: [commentID], references: [id])
+  commentID String?
 
   @@index([authorID])
   @@index([postID])
+  @@index([commentID])
 }

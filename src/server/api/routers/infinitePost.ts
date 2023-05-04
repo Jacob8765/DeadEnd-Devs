@@ -20,13 +20,8 @@ export const infinitePost = createTRPCRouter({
         cursor: cursor ? { id: cursor } : undefined,
         orderBy: { createdAt: sort },
         include: {
-          author: {
-            select: {
-              name: true,
-              image: true,
-              id: true,
-            },
-          },
+          author: true,
+          // upVotes: true,
         },
       });
 

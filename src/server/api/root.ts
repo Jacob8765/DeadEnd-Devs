@@ -1,7 +1,7 @@
 import { createTRPCRouter } from "./trpc";
 import { post } from "./routers/post";
-import { user } from "./routers/user";
 import { infinitePost } from "./routers/infinitePost";
+import { handleVote } from "./routers/handleVote";
 
 /**
  * This is the primary router for your server.
@@ -11,7 +11,7 @@ import { infinitePost } from "./routers/infinitePost";
 export const appRouter = createTRPCRouter({
   post,
   infinitePost,
-  user,
+  handleVote,
 });
 
 // export type definition of API

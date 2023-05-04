@@ -1,8 +1,9 @@
 import MarkdownTextarea from "./MarkdownTextarea";
-import type { BlockPost } from "@prisma/client";
+import type { InfiniteQueryOutput } from "../types/InfiniteQueryOutput";
 
-const PostContent = (postContent: { content: BlockPost }) => {
-  const { text, leftBlock, rightBlock } = postContent.content;
+const PostContent = (postContent: { content: InfiniteQueryOutput }) => {
+  const { leftBlock, rightBlock, text } = postContent.content;
+
   return (
     <>
       <p className="mx-auto mb-7 max-w-[60ch] break-words text-white">{text}</p>
