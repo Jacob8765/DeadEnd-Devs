@@ -1,4 +1,5 @@
 import { api } from "@/utils/api";
+import { useState } from "react";
 import { z } from "zod";
 
 export const handleVoteSchema = z.object({
@@ -21,21 +22,18 @@ type VoteProps = {
 const Vote = ({ postID, userID }: VoteProps) => {
   const handleVote = api.handleVote.mutateVotes.useMutation();
   const hasUpVoted = api.handleVote.hasUpVoted.useQuery({ postID, userID });
+  const [hasUpVotedNotRefreshed, setHaUpVotedNotRefreshed] = useState(false);
   
 
   const handleVoteInput = ({ typeOfVote }: handleVoteSchemaType) => {
-    if (handleVote.isLoading) {
-      console.log('wait for handleVote to finish');
-      return
-    }
+    if (handleVote.isLoading) return
       
-    if (hasUpVoted.data && typeOfVote === "up") {
-      // user will remove upvote
-      console.log("user will remove upvote");
-      console.log("hasUpVoted", hasUpVoted.data);
+    if ((hasUpVoted.data || hasUpVotedNotRefreshed) && typeOfVote === "up") {
+      // 
       return
     }
     handleVote.mutate({ typeOfVote, postID, userID })
+    setHaUpVotedNotRefreshed(true)
   };
   return (
     <div>

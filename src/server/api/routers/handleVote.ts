@@ -22,7 +22,7 @@ export const handleVote = createTRPCRouter({
         },
       });
 
-      return ctx.prisma.blockPost.update({
+      await ctx.prisma.blockPost.update({
         where: {
           id: postID,
         },
