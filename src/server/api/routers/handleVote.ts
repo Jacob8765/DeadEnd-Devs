@@ -50,6 +50,22 @@ export const handleVote = createTRPCRouter({
       return !!vote;
     }),
 
+  hasDownVoted: publicProcedure
+    .input(handleHasUpVotedSchema)
+    .query(async ({ ctx, input }) => {
+      const { userID, postID } = input;
+
+      const vote = await ctx.prisma.vote.findFirst({
+        where: {
+          userID: userID as string,
+          postID: postID,
+          typeOfVote: "down",
+        },
+      });
+
+      return !!vote;
+    }),
+
   // removeVote: publicProcedure
   // .input(handleVoteSchema)
   // .mutation(async ({ ctx, input }) => {

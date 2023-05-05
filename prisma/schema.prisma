@@ -51,7 +51,6 @@ model User {
   sessions      Session[]
   posts         BlockPost[]
   votes         Vote[]
-  // comments      Comment[]
 }
 
 model VerificationToken {
