@@ -76,8 +76,7 @@ model BlockPost {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
   upVotes   Vote[]
-  voteState Int    @default(0)
-  // comments  Comment[]
+  voteState Int    
 
   @@index([authorID])
 }
@@ -98,14 +97,13 @@ model BlockPost {
 
 model Vote {
   id        String    @id @default(cuid())
-  author    User      @relation(fields: [authorID], references: [id])
+  user    User      @relation(fields: [userID], references: [id])
   postVoted BlockPost @relation(fields: [postID], references: [id])
   postID    String
-  authorID  String
-  // comment Comment? @relation(fields: [commentID], references: [id])
-  commentID String?
+  userID  String
+  typeOfVote String
 
-  @@index([authorID])
+  @@index([userID])
   @@index([postID])
-  @@index([commentID])
+  @@unique([userID, postID])
 }

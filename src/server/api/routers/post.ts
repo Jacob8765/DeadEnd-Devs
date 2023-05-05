@@ -13,6 +13,7 @@ export const post = createTRPCRouter({
           text,
           leftBlock: editorBoxOne,
           rightBlock: editorBoxTwo,
+          voteState: 0,
           author: {
             connect: {
               id: userID,

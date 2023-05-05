@@ -5,10 +5,12 @@ import CreatedByUser from "./CreatedByUser";
 import PostContent from "./PostContent";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import Vote from "./Vote";
+import { useSession } from "next-auth/react";
 
 const TimeLineFeed = (props: { options: TimelineOptions }) => {
   const parsedResult = timelineOptions.parse(props.options);
   const options = parsedResult;
+  const sessionId = useSession().data?.user?.id;
 
   const lastElementRef = useIntersectionObserver(() => {
     // function will be called when the last element is in view
@@ -22,8 +24,6 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       }
     );
-
-  
 
   return (
     <div className="rounded-l-md bg-slate-600 text-center">
@@ -41,7 +41,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
             >
               <PostContent content={post} />
               <p>likes: {post.voteState ?? "0"}</p>
-              <Vote postId={post.id} />
+              <Vote postID={post.id} userID={sessionId} />
               <p>Post made by:</p>
               <CreatedByUser
                 userInfo={{
