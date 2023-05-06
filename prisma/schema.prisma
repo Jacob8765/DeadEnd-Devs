@@ -75,7 +75,6 @@ model BlockPost {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
   votes     Vote[]
-  voteState Int
 
   @@index([authorID])
 }
