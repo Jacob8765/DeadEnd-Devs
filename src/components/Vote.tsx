@@ -1,10 +1,8 @@
 import { api } from "@/utils/api";
-import { useState } from "react";
 import { z } from "zod";
 
 export const handleVoteSchema = z.object({
-  postID: z.string().optional(),
-  userID: z.string().optional(),
+  postID: z.string(),
   typeOfVote: z.string(),
 });
 
@@ -13,70 +11,43 @@ export const handleHasUpVotedSchema = z.object({
   userID: z.string().optional(),
 });
 
-type handleVoteSchemaType = z.infer<typeof handleVoteSchema>;
 type VoteProps = {
   postID: string;
-  userID: string | undefined;
 };
 
-const Vote = ({ postID, userID }: VoteProps) => {
-  const handleVote = api.handleVote.mutateVotes.useMutation();
-  const hasUpVoted = api.handleVote.hasUpVoted.useQuery({ postID, userID });
-  const hasDownVoted = api.handleVote.hasUpVoted.useQuery({ postID, userID });
-  const [hasUpVotedNotRefreshed, setHaUpVotedNotRefreshed] = useState(false);
-  const [hasDownVotedNotRefreshed, setHaDownVotedNotRefreshed] =
-    useState(false);
-  const [hasVoted, setHasVoted] = useState(false);
-  // const userUpVoted = hasUpVoted.data || hasUpVotedNotRefreshed
+const Vote = ({ postID }: VoteProps) => {
+  const mutateVote = api.handleVote.mutateVote.useMutation();
+  const { data: voteCountData } = api.handleVote.voteCount.useQuery({ postID });
 
-  const handleVoteInput = ({ typeOfVote }: handleVoteSchemaType) => {
-    if (handleVote.isLoading) return;
+  // Check if the vote count data is available
+  const { upvoteCount = 0, downvoteCount = 0 } = voteCountData ?? {};
 
-    if (hasVoted) {
-      // when user double clicks on upvote (remove or negate the vote)
-      if (hasUpVoted.data || hasUpVotedNotRefreshed) {
-        //
-        if (typeOfVote === "up") {
-          // removeVote.mutate({ postID, userID });
-        }
-
-        if (typeOfVote === "down") {
-          // negateVote.mutate({ postID, userID });
-        }
-        return;
-      }
-
-      // when user double clicks on downvote (remove or negate the vote)
-      if (
-        hasDownVoted.data ||
-        (hasDownVotedNotRefreshed && typeOfVote === "down")
-      ) {
-        //
-        console.log("hasDownVoted");
-
-        return;
-      }
+  const handleVote = async (typeOfVote: string) => {
+    if (mutateVote.isLoading) return;
+    try {
+      await mutateVote.mutateAsync({
+        postID,
+        typeOfVote,
+      });
+    } catch (error) {
+      // Show some UI error
+      console.log(error);
     }
-
-    handleVote.mutate({ typeOfVote, postID, userID });
-
-    if (typeOfVote === "up") {
-      setHaUpVotedNotRefreshed(true);
-    } else {
-      setHaDownVotedNotRefreshed(true);
-    }
-
-    setHasVoted(true);
   };
+
+  // Check if the vote count data is available
+  if (voteCountData === undefined) {
+    return <p>Loading vote counts...</p>;
+  }
+
   return (
     <div>
-      <button onClick={() => void handleVoteInput({ typeOfVote: "up" })}>
-        ^
-      </button>
-      <p></p>
-      <button onClick={() => void handleVoteInput({ typeOfVote: "down" })}>
-        v
-      </button>
+      <button onClick={() => void handleVote("up")}>^</button>
+      <p>upvote: {upvoteCount}</p>
+      <br />
+      <p>downvote: {downvoteCount}</p>
+      <br />
+      <button onClick={() => void handleVote("down")}>v</button>
     </div>
   );
 };

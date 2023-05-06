@@ -13,6 +13,7 @@ export const infinitePost = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { cursor, options } = input;
       const { limit, sort, filters } = options;
+      // const voteCount = api.handleVote.voteCount.useQuery();
 
       const items = await ctx.prisma.blockPost.findMany({
         take: limit + 1, // get an extra item at the end which we'll use as next cursor
@@ -21,8 +22,7 @@ export const infinitePost = createTRPCRouter({
         orderBy: { createdAt: sort },
         include: {
           author: true,
-          // upVotes: true,
-        },
+        } 
       });
 
       let nextCursor: typeof cursor | undefined = undefined;
