@@ -39,7 +39,7 @@ const TimeLineFeed = (props: { options: TimelineOptions }) => {
             >
               <PostContent content={post} />
               {/* <p>likes: {post.voteState ?? "0"}</p> */}
-              <Vote postID={post.id} />
+              <Vote postID={post.id} votes={post.votes} />
               <p>Post made by:</p>
               <CreatedByUser
                 userInfo={{

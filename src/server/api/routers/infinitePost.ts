@@ -22,7 +22,17 @@ export const infinitePost = createTRPCRouter({
         orderBy: { createdAt: sort },
         include: {
           author: true,
-        } 
+          votes: {
+            select: {
+              user: {
+                select: {
+                  name: true,
+                },
+              },
+              typeOfVote: true,
+            },
+          },
+        },
       });
 
       let nextCursor: typeof cursor | undefined = undefined;

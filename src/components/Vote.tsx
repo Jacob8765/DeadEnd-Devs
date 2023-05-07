@@ -1,21 +1,7 @@
 import { api } from "@/utils/api";
-import { z } from "zod";
+import type { VoteType } from "../types/voteType";
 
-export const handleVoteSchema = z.object({
-  postID: z.string(),
-  typeOfVote: z.string(),
-});
-
-export const handleHasUpVotedSchema = z.object({
-  postID: z.string(),
-  userID: z.string().optional(),
-});
-
-type VoteProps = {
-  postID: string;
-};
-
-const Vote = ({ postID }: VoteProps) => {
+const Vote = ({ postID }: VoteType) => {
   const mutateVote = api.handleVote.mutateVote.useMutation();
   const { data: voteCountData } = api.handleVote.voteCount.useQuery({ postID });
 
