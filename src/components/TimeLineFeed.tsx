@@ -1,6 +1,9 @@
 import { api } from "@/utils/api";
 import LoadingSpinner from "./LoadingSpinner";
-import { timelineOptions, type TimelineOptions } from "@/utils/timelineOptions";
+import {
+  timelineOptions,
+  type TimelineOptions,
+} from "@/src/types/timelineOptions";
 import CreatedByUser from "./CreatedByUser";
 import PostContent from "./PostContent";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";

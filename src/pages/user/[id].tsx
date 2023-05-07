@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { type TimelineOptions } from "@/utils/timelineOptions";
+import { type TimelineOptions } from "@/src/types/timelineOptions";
 import TimeLineFeed from "@/components/TimeLineFeed";
 
 const User = () => {

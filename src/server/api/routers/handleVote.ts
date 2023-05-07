@@ -1,6 +1,10 @@
-import { handleVoteSchema } from "@/src/components/Vote";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { z } from "zod";
+
+const handleVoteSchema = z.object({
+  postID: z.string(),
+  typeOfVote: z.string(),
+});
 
 export const handleVote = createTRPCRouter({
   mutateVote: protectedProcedure

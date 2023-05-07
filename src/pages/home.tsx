@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 import Navbar from "@/components/Navbar";
 import { getSession } from "next-auth/react";
-import { type TimelineOptions } from "@/utils/timelineOptions";
+import { type TimelineOptions } from "@/src/types/timelineOptions";
 import Post from "@/components/Post";
 import TimeLineFeed from "@/components/TimeLineFeed";
 

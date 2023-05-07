@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CreatedByUser } from "@/utils/createdByUser";
+import { CreatedByUser } from "@/src/types/createdByUser";
 
 const CreatedByUser = (credentials: { userInfo: CreatedByUser }) => {
   const { authorID } = credentials.userInfo;
