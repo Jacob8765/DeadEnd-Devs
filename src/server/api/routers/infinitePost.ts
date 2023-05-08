@@ -33,8 +33,9 @@ export const infinitePost = createTRPCRouter({
             },
           },
           votes: {
+            // get the vote type of the current user
             where: {
-              userID: ctx.session?.user?.id, // replace `userId` with the current user's ID
+              userID: ctx.session?.user?.id,
             },
             select: {
               typeOfVote: true,
@@ -79,7 +80,7 @@ export const infinitePost = createTRPCRouter({
       //   LIMIT ${limit + 1}
       // `;
 
-      console.log(items);
+      // console.log(items);
       let nextCursor: typeof cursor | undefined = undefined;
       if (items.length > limit) {
         const nextItem = items.pop(); // return the last item from the array

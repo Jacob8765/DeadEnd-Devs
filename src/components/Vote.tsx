@@ -1,69 +1,66 @@
 import { api } from "@/utils/api";
 import type { VoteType } from "../types/voteType";
-import { useRef } from "react";
+import { useCallback, useState } from "react";
+
+const VoteButton = ({
+  type,
+  myVote,
+  handleVote,
+}: {
+  type: string;
+  myVote: { typeOfVote: string } | null;
+  handleVote: (typeOfVote: string) => void;
+}) => (
+  <button
+    className={myVote?.typeOfVote === type ? "bg-zinc-700" : "text-black"}
+    onClick={() => void handleVote(type)}
+  >
+    {type == "up" ? "^" : "v"}
+  </button>
+);
 
 const Vote = ({ postID, voteCount, myVote }: VoteType) => {
   const mutateVote = api.handleVote.mutateVote.useMutation();
-  //const { data: voteCountData } = api.handleVote.voteCount.useQuery({ postID });
 
   // Check if the vote count data is available
-  const { upvotes = 0, downvotes = 0 } = voteCount;
-  const myVoteDynamic = useRef(myVote);
-  console.log(myVote);
+  const [myVoteState, setMyVote] = useState(myVote);
+  const [voteCountState, setVoteCount] = useState(voteCount);
 
-  const handleVote = async (typeOfVote: string) => {
-    if (mutateVote.isLoading) return;
-    try {
-      if (myVoteDynamic.current?.typeOfVote === typeOfVote) {
-        myVoteDynamic.current = null;
-      } else if (!myVoteDynamic.current) {
-        myVoteDynamic.current = { typeOfVote };
+  const handleVote = useCallback(
+    async (typeOfVote: string) => {
+      if (myVoteState?.typeOfVote === "up") setVoteCount(voteCountState - 1);
+      else if (typeOfVote === "up") setVoteCount(voteCountState + 1);
+
+      if (myVoteState?.typeOfVote === typeOfVote) {
+        setMyVote(null);
+      } else if (!myVoteState) {
+        setMyVote({ typeOfVote });
       } else {
-        myVoteDynamic.current.typeOfVote = typeOfVote;
+        setMyVote((prev) => ({ ...prev, typeOfVote }));
       }
-      console.log("my vote", myVote);
 
-      await mutateVote.mutateAsync({
-        postID,
-        typeOfVote,
-      });
-    } catch (error) {
-      // Show some UI error
-      console.log(error);
-    }
-  };
-
-  // Check if the vote count data is available
-  // if (voteCountData === undefined) {
-  //   return <p>Loading vote counts...</p>;
-  // }
+      if (mutateVote.isLoading) return;
+      try {
+        await mutateVote.mutateAsync({
+          postID,
+          typeOfVote,
+        });
+      } catch (error) {
+        // Show some UI error
+        console.log(error);
+      }
+    },
+    [myVoteState, mutateVote.isLoading, voteCountState]
+  );
 
   return (
     <div>
-      <button
-        className={
-          myVoteDynamic.current?.typeOfVote === "up"
-            ? "bg-zinc-700"
-            : "text-black"
-        }
-        onClick={() => void handleVote("up")}
-      >
-        ^
-      </button>
-      <p>upvote: {Number(upvotes)}</p>
+      <VoteButton type="up" myVote={myVoteState} handleVote={handleVote} />
+      <p>upvote: {voteCountState}</p>
       <br />
-      <p>downvote: {Number(downvotes)}</p>
+      <p>downvote: 0</p>
       <br />
-      <button
-        className={
-          myVoteDynamic.current?.typeOfVote === "down"
-            ? "bg-zinc-700"
-            : "text-black"
-        }
-        onClick={() => void handleVote("down")}
-      >
-        v
-      </button>
+      <VoteButton type="down" myVote={myVoteState} handleVote={handleVote} />
     </div>
   );
 };

@@ -2,10 +2,7 @@ import { z } from "zod";
 
 const voteProps = z.object({
   postID: z.string(),
-  voteCount: z.object({
-    upvotes: z.number(),
-    downvotes: z.number(),
-  }),
+  voteCount: z.number(),
   myVote: z
     .object({
       id: z.string().optional(),
