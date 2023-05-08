@@ -39,7 +39,7 @@ const Vote = ({ postID, voteCount, myVote }: VoteType) => {
         setMyVote((prev) => ({ ...prev, typeOfVote }));
       }
 
-      if (mutateVote.isLoading) return;
+      //if (mutateVote.isLoading) return;
       try {
         await mutateVote.mutateAsync({
           postID,
@@ -58,7 +58,7 @@ const Vote = ({ postID, voteCount, myVote }: VoteType) => {
       <VoteButton type="up" myVote={myVoteState} handleVote={handleVote} />
       <p>upvote: {voteCountState}</p>
       <br />
-      <p>downvote: 0</p>
+      <p>downvote</p>
       <br />
       <VoteButton type="down" myVote={myVoteState} handleVote={handleVote} />
     </div>
