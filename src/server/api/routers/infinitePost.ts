@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { timelineOptions } from "@/src/types/timelineOptions";
+import { BlockPost } from "@prisma/client";
 
 export const infinitePost = createTRPCRouter({
   infinitePost: publicProcedure
@@ -22,19 +23,63 @@ export const infinitePost = createTRPCRouter({
         orderBy: { createdAt: sort },
         include: {
           author: true,
-          votes: {
+          _count: {
             select: {
-              user: {
-                select: {
-                  name: true,
+              votes: {
+                where: {
+                  typeOfVote: "up", // only count upvotes, bc prisma
                 },
               },
+            },
+          },
+          votes: {
+            where: {
+              userID: ctx.session?.user?.id, // replace `userId` with the current user's ID
+            },
+            select: {
               typeOfVote: true,
             },
           },
         },
       });
+      console.log(items);
 
+      //       type BlockPostWithUpvotesAndAuthor = BlockPost & {
+      //         upvotes: number;
+      //         downvotes: number;
+      //         author: {
+      //           name: string | null;
+      //           image: string | null;
+      //         };
+      //         myVote: {
+      //           id: string;
+      //           typeOfVote: string;
+      //         };
+      //       };
+
+      //       const items = await ctx.prisma.$queryRaw<BlockPostWithUpvotesAndAuthor[]>`
+      //   SELECT
+      //       p.*,
+      //       COUNT(CASE WHEN v.typeOfVote = 'up' THEN 1 END) as upvotes,
+      //       COUNT(CASE WHEN v.typeOfVote = 'down' THEN 1 END) as downvotes,
+      //       (SELECT JSON_OBJECT('id', v.id, 'typeOfVote', v.typeOfVote) FROM Vote AS v WHERE v.postID = p.id AND v.userID = ${
+      //         ctx.session?.user?.id
+      //       }) AS myVote,
+      //       json_object('name', a.name, 'image', a.image) as author
+
+      //   FROM
+      //       BlockPost p
+      //       LEFT JOIN Vote v ON v.postID = p.id
+      //       left join User as a on a.id = p.authorID
+      //   WHERE p.authorID != ${ctx.session?.user?.id}
+      //   GROUP BY
+      //       p.id
+      //   ORDER BY
+      //       p.createdAt ASC
+      //   LIMIT ${limit + 1}
+      // `;
+
+      console.log(items);
       let nextCursor: typeof cursor | undefined = undefined;
       if (items.length > limit) {
         const nextItem = items.pop(); // return the last item from the array

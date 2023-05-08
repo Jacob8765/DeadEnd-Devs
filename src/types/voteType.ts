@@ -2,14 +2,16 @@ import { z } from "zod";
 
 const voteProps = z.object({
   postID: z.string(),
-  votes: z.array(
-    z.object({
-      user: z.object({
-        name: z.string().nullish(),
-      }),
+  voteCount: z.object({
+    upvotes: z.number(),
+    downvotes: z.number(),
+  }),
+  myVote: z
+    .object({
+      id: z.string().optional(),
       typeOfVote: z.string(),
     })
-  ),
+    .nullable(),
 });
 
 export type VoteType = z.infer<typeof voteProps>;
