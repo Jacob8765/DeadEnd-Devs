@@ -28,6 +28,14 @@ const Vote = ({ postID, voteCount, myVote }: VoteType) => {
 
   const handleVote = useCallback(
     async (typeOfVote: string) => {
+      console.log(
+        "type of vote: ",
+        typeOfVote,
+        "my vote: ",
+        myVoteState,
+        "vote count: ",
+        voteCountState
+      );
       if (myVoteState?.typeOfVote === "up") setVoteCount(voteCountState - 1);
       else if (typeOfVote === "up") setVoteCount(voteCountState + 1);
 
