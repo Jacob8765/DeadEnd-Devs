@@ -28,6 +28,14 @@ const Vote = ({ postID, voteCount, myVote }: VoteType) => {
 
   const handleVote = useCallback(
     async (typeOfVote: string) => {
+      console.log(
+        "type of vote: ",
+        typeOfVote,
+        "my vote: ",
+        myVoteState,
+        "vote count: ",
+        voteCountState
+      );
       if (myVoteState?.typeOfVote === "up") setVoteCount(voteCountState - 1);
       else if (typeOfVote === "up") setVoteCount(voteCountState + 1);
 
@@ -39,7 +47,7 @@ const Vote = ({ postID, voteCount, myVote }: VoteType) => {
         setMyVote((prev) => ({ ...prev, typeOfVote }));
       }
 
-      if (mutateVote.isLoading) return;
+      //if (mutateVote.isLoading) return;
       try {
         await mutateVote.mutateAsync({
           postID,
@@ -58,7 +66,7 @@ const Vote = ({ postID, voteCount, myVote }: VoteType) => {
       <VoteButton type="up" myVote={myVoteState} handleVote={handleVote} />
       <p>upvote: {voteCountState}</p>
       <br />
-      <p>downvote: 0</p>
+      <p>downvote</p>
       <br />
       <VoteButton type="down" myVote={myVoteState} handleVote={handleVote} />
     </div>
